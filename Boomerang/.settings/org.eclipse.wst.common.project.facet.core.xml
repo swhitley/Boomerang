@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <runtime name="Workday Runtime"/>
+  <installed facet="cc.ws.cloud.assembly" version="1.0"/>
+  <installed facet="cc.facet.assembly" version="1.0"/>
+  <installed facet="java" version="1.8"/>
+</faceted-project>

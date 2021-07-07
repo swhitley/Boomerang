@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<model modelId="com.capeclear.wtp.facet.assembly.facet.AssemblyFacetInstallDataModelProvider">
+    <map key="IAssemblyFacetInstallDataModelProperties.LINK_URI_LIST"/>
+    <list key="ICcFacetInstallDataModelProperties.EXCLUDE_FROM_DEPLOY_SRC"/>
+    <value class="java.lang.Boolean" key="ICcFacetInstallDataModelProperties.MARK_GENERATED_DERIVED">true</value>
+    <value class="java.lang.Boolean" key="ICcFacetInstallDataModelProperties.USE_CLASSPATH_DEPENDENCY_FOR_PARENT_SERVICE">true</value>
+    <value class="java.lang.String" key="ICcFacetInstallDataModelProperties.WS_FOLDER">ws</value>
+    <value class="java.lang.Boolean" key="ICcFacetInstallDataModelProperties.COPY_WSDL_FILES_ON_DEPLOY">true</value>
+    <value class="java.lang.String" key="IAssemblyFacetInstallDataModelProperties.ASSEMBLY_TEMPLATE_ID">assembly</value>
+    <value class="java.lang.Boolean" key="ICcFacetInstallDataModelProperties.EXPORT_REFERENCED_WEBSERVICE_PROJECT_CLASSPATH">false</value>
+</model>

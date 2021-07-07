@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<edst:Settings xmlns:edst="http://dublin.workday.com/studio/settings/editor">
+  <editor uri="/Organizations_Update/ws/WSAR-INF/OrgText.xsd">
+    <property name="transformation.text.to.xml" value="true"/>
+  </editor>
+</edst:Settings>
