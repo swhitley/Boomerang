@@ -12,7 +12,7 @@ A Workday boomerang integration uses data from Workday to generate a Workday upd
 
 ## Launch Options
 
-There are three separate options for launching Boomerang.
+There are three separate options for launching Boomerang. When selecting an option (a, b, or c), you must leave the parameters for the other options blank.
 
 1. **a - Event Document Name Contains** - This is the direct replacement for the legacy `WebServiceRequester` integration. The parameter may be left blank when being used with an EIB, and the integration will pick up the deliverable document from the EIB.  If there are multiple deliverable documents, use this parameter to match and select the desired deliverable document for processing.
 2. **b - Input Document** - A fully formed SOAP request document can be attached at runtime. The Boomerang integration can be run in standalone mode and does not need to be connected to an EIB.
