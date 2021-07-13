@@ -32,8 +32,9 @@ There are three separate options for launching Boomerang. When selecting an opti
 1. Create an Outbound EIB.
 2. In the EIB, use the transformation step to convert the output into a SOAP call (see the sample xslt, 'department_assignment_automation.xslt', below).
 3. Add a business process to the EIB.
-4. Insert a new step at the end of the business process to call the `Boomerang` integration. 
-5. You do not need to configure any of the Boomerang launch parameters for this option.
+4. Insert a new step at the end of the business process to call the `Boomerang` integration.
+5. Update the Web Service launch parameter to make sure that it matches the request in your XSLT file. 
+6. You are not required to configure any additional Boomerang launch parameters for this option.
 
 ![image](https://user-images.githubusercontent.com/413552/125008154-c2fa0680-e016-11eb-8551-dda6e78c8298.png)
 ![image](https://user-images.githubusercontent.com/413552/125008820-2c2e4980-e018-11eb-9dc9-5571b1126a2b.png)
