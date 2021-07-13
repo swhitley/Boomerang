@@ -8,6 +8,9 @@ A Workday boomerang integration uses data from Workday to generate a Workday upd
 Use launch option `c` (below) as the quickest way to get started with Boomerang. 
 1. Select the report that will serve as the boomerang input, **c - Custom Report**.  
 2. Attach the XSLT document using **c - Custom Transformation**.
+3. Select the `Web Service` that corresponds to the web service request in your XSLT.
+
+**Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
 
 ## Installation
 1. Download the latest clar file from https://github.com/swhitley/Boomerang/releases/latest.
