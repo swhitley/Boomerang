@@ -65,7 +65,8 @@ There are three separate options for launching Boomerang. When selecting an opti
 
 ### Sample XML Report Output
 
-```<?xml version='1.0' encoding='UTF-8'?>
+```xml
+<?xml version='1.0' encoding='UTF-8'?>
 <wd:Report_Data xmlns:wd="urn:com.workday.report/Department_Assignment_Automation">
 	<wd:Report_Entry>
 		<wd:Position_ID>Job-7-12345</wd:Position_ID>
