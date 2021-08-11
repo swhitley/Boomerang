@@ -82,7 +82,7 @@ There are three separate options for launching Boomerang. When selecting an opti
   <xsl:template match="/">
     <env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
       <env:Body>
-        <xsl:for-each select="wd:Report_Data/wd:Report_Entry">```
+        <xsl:for-each select="wd:Report_Data/wd:Report_Entry">
           <Change_Organization_Assignments_Request xmlns="urn:com.workday/bsvc" xmlns:a="urn:com.workday/bsvc" a:version="v27.2">
             <a:Change_Organization_Assignments_Data a:Effective_Date="{format-date(current-date(), '[Y0001]-[M01]-[D01]')}">
               <a:Position_Reference>
