@@ -39,20 +39,43 @@ There are three separate options for launching Boomerang. When selecting an opti
 
 ## EIB Instructions
 
-1. Develop a Workday Custom Report. The report will be used to extract data for a web service request (see the example report definition below).
+1. Develop a Workday Custom Report. The report will be used to extract data for a web service request (see the sample report and sample xml output below).
 2. Create an Outbound EIB.
 3. Select the Workday report from step one as your data source.
 4. In the EIB, use the transformation step to convert the output into a web service request (see the sample xslt, 'department_assignment_automation.xslt', below).
 5. Add a business process to the EIB.
 6. Insert a new step at the end of the business process to call the `Boomerang` integration.
-7. Update the Web Service launch parameter to make sure that it matches the request in your XSLT file. 
+7. For the `Boomerang` integration configuration, update the Web Service launch parameter to make sure that it matches the request in your XSLT file. 
 8. You are not required to configure any additional Boomerang launch parameters for this option.
 
+### (Step 5 Above) Add a business process to the EIB and insert a new step
 ![image](https://user-images.githubusercontent.com/413552/125008154-c2fa0680-e016-11eb-8551-dda6e78c8298.png)
+
+### (Step 6 Above) Select "Integration" and choose the Boomerang integration
 ![image](https://user-images.githubusercontent.com/413552/125008820-2c2e4980-e018-11eb-9dc9-5571b1126a2b.png)
 
+### (Step 7 Above) Configure the Boomerang integration
 
-### department_assignment_automation.xslt
+![image](https://user-images.githubusercontent.com/413552/129071201-40fa7c4d-2f01-4262-9ee5-0ff1819b6b59.png)
+
+
+### Sample Custom Report
+
+<img src="https://user-images.githubusercontent.com/413552/129069245-71a4e3e3-d7ab-4587-9b0b-dda126b956de.png" width="600" />
+
+### Sample XML Report Output
+
+```<?xml version='1.0' encoding='UTF-8'?>
+<wd:Report_Data xmlns:wd="urn:com.workday.report/Department_Assignment_Automation">
+	<wd:Report_Entry>
+		<wd:Position_ID>Job-7-12345</wd:Position_ID>
+		<wd:Reference_ID>DEPT-143728</wd:Reference_ID>
+	</wd:Report_Entry>
+</wd:Report_Data>
+```
+
+### Sample XSLT Transformation
+#### department_assignment_automation.xslt
 ```xml
 <?xml version='1.0' encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:wd="urn:com.workday.report/Department_Assignment_Automation">
