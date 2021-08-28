@@ -31,9 +31,9 @@ Use launch option `c` (below) as the quickest way to get started with Boomerang.
 
 There are three separate options for launching Boomerang. When selecting an option (a, b, or c), you must leave the parameters for the other options blank.
 
-1. **a - Event Document Name Contains** - This is the direct replacement for the legacy `WebServiceRequester` integration. The parameter may be left blank when being used with an EIB; the integration will pick up the deliverable document from the EIB output.  If there are multiple deliverable documents, use this parameter to match the name of the desired deliverable document.
-2. **b - Input Document** - A fully formed SOAP request document can be attached at runtime. For this option, the boomerang integration can be run in standalone mode and does not need to be connected to an EIB.
-3. **c - Custom Report** and **c - Custom Transformation** - This option allows you to run the Boomerang as a standalone integration. An EIB is not needed because Boomerang will extract your report data and perform the tranformation. Select a Workday report, then attach the XSLT document to be used to transform the report output. Boomerang does not support reports with prompts at this time.
+1. **a - Event Document Name Contains** (use with Outbound EIBs) - This is the direct replacement for the legacy `WebServiceRequester` integration. The parameter may be left blank when being used with an EIB; the integration will pick up the deliverable document from the EIB output.  If there are multiple deliverable documents, use this parameter to match the name of the desired deliverable document.
+2. **b - Input Document** (use with a document that has already been transformed to a request) - A fully formed SOAP request document can be attached at runtime. For this option, the boomerang integration can be run in standalone mode and does not need to be connected to an EIB.
+3. **c - Custom Report** and **c - Custom Transformation** (no need for an EIB with this option) - This option allows you to run the Boomerang as a standalone integration. An EIB is not needed because Boomerang will extract your report data and perform the tranformation. Select a Workday report, then attach the XSLT document to be used to transform the report output. Boomerang does not support reports with prompts at this time.
 
 ![image](https://user-images.githubusercontent.com/413552/124685009-44ba2a80-de85-11eb-9632-e48dec777cf7.png)
 
