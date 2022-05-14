@@ -77,7 +77,7 @@
     <element href="assembly.xml#WorkdayOutRest"/>
   </visualProperties>
   <visualProperties x="1513" y="553">
-    <element href="assembly.xml#GetXSLTDocument"/>
+    <element href="assembly.xml#ReportTransformation"/>
   </visualProperties>
   <visualProperties x="1012" y="319">
     <element href="assembly.xml#Route"/>
@@ -91,9 +91,15 @@
   <visualProperties x="840" y="1316">
     <element href="assembly.xml#ErrorHandler_FileToMessage"/>
   </visualProperties>
+  <visualProperties x="1612" y="728">
+    <element href="assembly.xml#GetXSLTDocumentIfExists"/>
+  </visualProperties>
+  <visualProperties x="510" y="478">
+    <element href="assembly.xml#ErrorHandler_GetXSLT"/>
+  </visualProperties>
   <decorations x="10" y="-3" width="427" height="51" font="Arial|16|3" fontColor="1" type="TEXT" text="Boomerang"/>
   <decorations x="18" y="1419" width="-1" height="-1" font="Segoe UI|18|1" type="TEXT" text=""/>
-  <decorations x="18" y="47" width="638" height="42" font="MS Sans Serif|10|1" fontColor="1" type="TEXT" text="v1.0.0"/>
+  <decorations x="18" y="47" width="638" height="42" font="MS Sans Serif|10|1" fontColor="1" type="TEXT" text="v1.2.0"/>
   <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.6756756756756757" targetAnchorX="0.03488372093023256" targetAnchorY="0.25">
     <source href="assembly.xml#StartHere"/>
     <target href="assembly.xml#Initialize"/>
@@ -113,10 +119,6 @@
   <connections type="routesTo" sourceAnchorX="0.5126050420168067" sourceAnchorY="1.0" targetAnchorX="0.4895833333333333" targetAnchorY="0.2702702702702703">
     <source href="assembly.xml#//@beans/@mixed.1/@mixed.3/@mixed.3"/>
     <target href="assembly.xml#ErrorHandler"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.20833333333333334" targetAnchorX="0.09174311926605505" targetAnchorY="0.65625">
-    <source href="assembly.xml#GetEventDocument"/>
-    <target href="assembly.xml#StoreTheFile"/>
   </connections>
   <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.11764705882352941" targetAnchorX="0.4369369369369369" targetAnchorY="0.4864864864864865">
     <source href="assembly.xml#WebServiceRequest"/>
@@ -142,10 +144,6 @@
     <source href="assembly.xml#Put_Totals"/>
     <target href="assembly.xml#StoreCloudLog"/>
   </connections>
-  <connections type="routesTo" sourceAnchorX="0.8853211009174312" sourceAnchorY="1.0" targetAnchorX="0.35403726708074534" targetAnchorY="0.07777777777777778">
-    <source href="assembly.xml#GetDocuments"/>
-    <target href="assembly.xml#DocumentSource"/>
-  </connections>
   <connections type="routesTo" sourceAnchorX="0.918918918918919" sourceAnchorY="1.0" targetAnchorX="0.3005181347150259" targetAnchorY="0.6486486486486487">
     <source href="assembly.xml#//@beans/@mixed.1/@route.0/@subRoute.0"/>
     <target href="assembly.xml#GetEventDocuments"/>
@@ -164,10 +162,10 @@
   </connections>
   <connections type="routesResponseTo" sourceAnchorX="0.8823529411764706" sourceAnchorY="1.0" targetAnchorX="0.010615711252653927" targetAnchorY="0.16666666666666666">
     <source href="assembly.xml#WorkdayOutRest"/>
-    <target href="assembly.xml#GetXSLTDocument"/>
+    <target href="assembly.xml#ReportTransformation"/>
   </connections>
   <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.2604166666666667" targetAnchorX="0.026785714285714284" targetAnchorY="0.53125">
-    <source href="assembly.xml#GetXSLTDocument"/>
+    <source href="assembly.xml#ReportTransformation"/>
     <target href="assembly.xml#StoreTheFile"/>
   </connections>
   <connections type="routesResponseTo" sourceAnchorX="0.7464788732394366" sourceAnchorY="1.0" targetAnchorX="0.272" targetAnchorY="0.40540540540540543">
@@ -220,6 +218,22 @@
     <source href="assembly.xml#FileToMessage"/>
     <target href="assembly.xml#ForEach"/>
   </connections>
+  <connections type="routesTo" sourceAnchorX="0.7857142857142857" sourceAnchorY="1.0" targetAnchorX="0.08254716981132075" targetAnchorY="0.088">
+    <source href="assembly.xml#GetDocuments"/>
+    <target href="assembly.xml#GetXSLTDocumentIfExists"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.144" targetAnchorX="0.2727272727272727" targetAnchorY="0.05421686746987952">
+    <source href="assembly.xml#GetXSLTDocumentIfExists"/>
+    <target href="assembly.xml#DocumentSource"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.232" targetAnchorX="0.25925925925925924" targetAnchorY="0.136">
+    <source href="assembly.xml#GetEventDocument"/>
+    <target href="assembly.xml#StoreTheFile"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.373134328358209" sourceAnchorY="1.0" targetAnchorX="0.6868131868131868" targetAnchorY="0.3783783783783784">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.61/@mixed.3"/>
+    <target href="assembly.xml#ErrorHandler_GetXSLT"/>
+  </connections>
   <swimlanes x="18" y="103" name="Main">
     <elements href="assembly.xml#StartHere"/>
     <elements href="assembly.xml#Initialize"/>
@@ -234,6 +248,7 @@
   </swimlanes>
   <swimlanes x="20" y="348" name="Get Documents">
     <elements href="assembly.xml#GetDocuments"/>
+    <elements href="#//@swimlanes.13"/>
     <elements href="assembly.xml#DocumentSource"/>
     <elements href="#//@swimlanes.9"/>
     <elements href="#//@swimlanes.8"/>
@@ -266,7 +281,7 @@
   <swimlanes x="491" y="494" orientation="VERTICAL">
     <elements href="assembly.xml#GetEventDocument"/>
     <elements href="assembly.xml#GetInputDocument"/>
-    <elements href="assembly.xml#GetXSLTDocument"/>
+    <elements href="assembly.xml#ReportTransformation"/>
   </swimlanes>
   <swimlanes x="477" y="506" name="" orientation="VERTICAL">
     <elements href="#//@swimlanes.11"/>
@@ -283,5 +298,9 @@
   <swimlanes x="242" y="1162" name="" orientation="VERTICAL">
     <elements href="assembly.xml#FileToMessage"/>
     <elements href="assembly.xml#ErrorHandler_FileToMessage"/>
+  </swimlanes>
+  <swimlanes x="148" y="477" orientation="VERTICAL">
+    <elements href="assembly.xml#GetXSLTDocumentIfExists"/>
+    <elements href="assembly.xml#ErrorHandler_GetXSLT"/>
   </swimlanes>
 </wdnm:Diagram>
