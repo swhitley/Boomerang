@@ -10,24 +10,49 @@ A Workday boomerang integration has three components:
 
 This application, `Boomerang-v2`, is a Workday Studio integration that can be run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
 
-- Boomerang can be run as part of an EIB, or it can be launched as a standalone integration. 
+- Boomerang can be run as part of an EIB, or it can be launched as a standalone integration.
+- With the *template* option, Boomerang is truly a no-code solution (no Studio code and no XSLT).  Boomerang will convert the request template to XSLT and then transform the report document.
 - Messages are logged using multiple output options, including Cloud Logs.
-
-An EIB is often used as input to `Boomerang`, but there is also a quick launch option for running Boomerang as a standalone app. 
-1. Select the `Web Service` that corresponds to the web service request in your XSLT.
-2. Select the XSLT document from Workday Drive using **Custom XSLT or Template (opt)**.
-3. Select the report that will serve as the boomerang input, **Custom Report (opt)**.  
-
-**Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
-
-**Tip:** If you always override your Workday report's namespace with `urn:com.workday/bsvc` (instead of the Workday-generated namespace), you'll be less likely to have a mismatch in your XSLT.
 
 ## Installation
 1. Download the latest clar file from https://github.com/swhitley/Boomerang/releases/latest.
 2. Import the clar file into Workday Studio.
 3. Deploy the integration to your Workday tenant.
 
-## Launch Options
+## Quick Start
+
+An EIB is often used as input to `Boomerang`, but it is also possible to run Boomerang as a standalone app. Launch the `Boomerang-v2`integration:
+1. Select the `Web Service` that corresponds to the web service request in your XSLT.
+2. Select the XSLT document from Workday Drive using **Custom XSLT or Template (opt)**.
+3. Select the report that will serve as the boomerang input, **Custom Report (opt)**.
+
+**Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
+
+**Tip:** If you always override your Workday report's namespace with `urn:com.workday/bsvc` (instead of the Workday-generated namespace), you'll be less likely to have a mismatch in your XSLT.
+
+## EIB Instructions (most common approach)
+
+1. Develop a Workday Custom Report. The report will be used to extract data for a web service request (see the sample report and sample xml output below).
+2. Create an Outbound EIB.
+3. Select the Workday report from step one as your data source.
+4. In the EIB, use the transformation step to convert the output into a web service request (see the sample xslt, 'department_assignment_automation.xslt', below).
+5. Add a business process to the EIB.
+6. Insert a new step at the end of the business process to call the `Boomerang-v2` integration.
+7. For the Boomerang integration parameters, update the Web Service launch parameter so it matches the request in your XSLT file. 
+8. You are not required to configure any additional Boomerang launch parameters for this option.
+
+### (Step 5 Above) Add a business process to the EIB and insert a new step
+![image](https://user-images.githubusercontent.com/413552/125008154-c2fa0680-e016-11eb-8551-dda6e78c8298.png)
+
+### (Step 6 Above) Select "Integration" and choose the Boomerang-v2 integration
+![image](https://user-images.githubusercontent.com/413552/125008820-2c2e4980-e018-11eb-9dc9-5571b1126a2b.png)
+
+### (Step 7 Above) Configure the Boomerang integration
+
+<img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
+
+
+## Launch Parameters
 
 There are three options for launching Boomerang. Depending on the option you select, you must leave the parameters for the other options blank.
 
@@ -35,27 +60,6 @@ There are three options for launching Boomerang. Depending on the option you sel
 2. **Custom Transformation** (optional) - If the report input has not been transformed in the EIB, the xslt attachment in this parameter can be used to convert the XML into a SOAP request.  This parameter is useful for boomerang chains. To create a boomerang chain, select 'None' for the transformation in the EIB.  Create multiple integration steps in the EIB business process and attach different XSLT documents in this parameter to generate different transformations.  Boomerang chains are useful when generating different requests using the same report input.  For example, it is possible to create new supervisory orgs in one integration step, and in the next integration step, assign the manager roles.  The trick is to use different xslt documents for each boomernag step, which can be done with this parameter.
 3. **Custom Report** and **Custom XSLT or Template** (no need for an EIB with this option) - This option allows you to run the Boomerang as a standalone integration. An EIB is not needed because Boomerang will extract your report data and perform the tranformation. Select a Workday report, then attach the XSLT document to be used to transform the report output. Boomerang does not support reports with prompts at this time.
 4. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will be performed in valide only mode.
-
-<img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
-
-## EIB Instructions
-
-1. Develop a Workday Custom Report. The report will be used to extract data for a web service request (see the sample report and sample xml output below).
-2. Create an Outbound EIB.
-3. Select the Workday report from step one as your data source.
-4. In the EIB, use the transformation step to convert the output into a web service request (see the sample xslt, 'department_assignment_automation.xslt', below).
-5. Add a business process to the EIB.
-6. Insert a new step at the end of the business process to call the `Boomerang` integration.
-7. For the `Boomerang` integration configuration, update the Web Service launch parameter to make sure that it matches the request in your XSLT file. 
-8. You are not required to configure any additional Boomerang launch parameters for this option.
-
-### (Step 5 Above) Add a business process to the EIB and insert a new step
-![image](https://user-images.githubusercontent.com/413552/125008154-c2fa0680-e016-11eb-8551-dda6e78c8298.png)
-
-### (Step 6 Above) Select "Integration" and choose the Boomerang integration
-![image](https://user-images.githubusercontent.com/413552/125008820-2c2e4980-e018-11eb-9dc9-5571b1126a2b.png)
-
-### (Step 7 Above) Configure the Boomerang integration
 
 <img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
 
