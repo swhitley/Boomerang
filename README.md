@@ -45,7 +45,7 @@ An EIB is often used as input to `Boomerang`, but it is also possible to run Boo
 ![image](https://user-images.githubusercontent.com/413552/125008154-c2fa0680-e016-11eb-8551-dda6e78c8298.png)
 
 ### (Step 6 Above) Select "Integration" and choose the Boomerang-v2 integration
-![image](https://user-images.githubusercontent.com/413552/125008820-2c2e4980-e018-11eb-9dc9-5571b1126a2b.png)
+<img width="320" alt="image" src="https://user-images.githubusercontent.com/413552/213903737-86b79a14-c6c4-4675-890f-13ea6edc5a40.png">
 
 ### (Step 7 Above) Configure the Boomerang integration
 
