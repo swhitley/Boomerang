@@ -21,10 +21,14 @@ This application, `Boomerang-v2`, is a Workday Studio integration that can be ru
 
 ## Quick Start
 
-An EIB is often used as input to `Boomerang`, but it is also possible to run Boomerang as a standalone app. Launch the `Boomerang-v2`integration:
-1. Select the `Web Service` that corresponds to the web service request in your XSLT.
-2. Select the XSLT document from Workday Drive using **Custom XSLT or Template (opt)**.
-3. Select the report that will serve as the boomerang input, **Custom Report (opt)**.
+An EIB is often used as input to `Boomerang`, but it is also possible to run Boomerang as a standalone app. 
+
+1. Launch the `Boomerang-v2`integration.
+2. Select the `Web Service` that corresponds to the web service request in your XSLT.
+3. Select the XSLT document from Workday Drive using **Custom XSLT or Template (opt)**.
+4. Select the report that will serve as the boomerang input in **Custom Report (opt)**.
+
+The report input will be transformed by the XSLT and the web service request will be executed in Workday.
 
 **Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
 
