@@ -8,37 +8,39 @@
      xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
      xmlns:pi="urn:com.workday/picof"
      xmlns:wd="urn:com.workday/bsvc"
-     xmlns:xdiff="urn:com.workday/esb/xdiff"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
  
-	<cc:assembly id="WorkdayAssembly" version="2022.10">
+	<cc:assembly id="WorkdayAssembly" version="2022.37">
+        <cc:local-out id="Call_DriveItemGet" store-message="none" execute-when="props['input.drive.wid'] != null" routes-response-to="Call_ReportDataGet" endpoint="vm://Boomerang-v2/DriveItemGet"/>
+        <cc:async-mediation id="Initialize" routes-to="Call_DriveItemGet" handle-downstream-errors="true">
+            <cc:steps>
+                <cc:eval id="Init_Vars">
+                	<cc:expression>props['file.count'] = 0</cc:expression>
+                	<cc:expression>props['record.count'] = 0</cc:expression>
+                	<cc:expression>props['error.count'] = 0</cc:expression>
+                    <cc:expression>props['error.flag'] = false</cc:expression>
+                    <cc:expression>props['log.file.name'] = 'log.' + lp.parentEventWID + '.' + lp.sentOn + '.html'</cc:expression>
+                    <cc:expression>props['xslt.file'] = null</cc:expression>
+               </cc:eval>
+                <cc:eval id="LParams1">
+                    <cc:expression>props['web.service.application'] = lp.getDescriptor('Web Service', lp.getWIDs('Web Service').get(0)).replace(' (Public)','').replace(' ','_')</cc:expression>
+                    <cc:expression>props['web.service.version'] = lp.getDescriptor('Web Service API Version', lp.getWIDs('Web Service API Version').get(0))</cc:expression>
+                    <cc:expression>props['input.drive.wids'] =  lp.getWIDs('Custom XSLT or Template (opt)')</cc:expression>
+                   <cc:expression>props['input.drive.wid'] =  (props['input.drive.wids'] != empty ? props['input.drive.wids'].get(0) : null)</cc:expression>
+                    <cc:expression>props['event.document.contains'] = lp.getSimpleData('Event Doc Name Contains (opt)')</cc:expression>
+                    <cc:expression>props['validate.only'] = lp.getSimpleData('Validate Only')</cc:expression>
+                    <cc:expression>props['validate.only.text'] = (props['validate.only'] == 1 ? &quot;Yes&quot; : &quot;No&quot;)</cc:expression>
+      
+                </cc:eval>
+                <cc:eval id="LParams2">
+                   <cc:expression>props['report.name'] = (lp.getWIDs('Custom Report (opt)') != empty ? lp.getReferenceData('Custom Report (opt)', 'Custom_Report_ID').replace(' ', '_') : null)</cc:expression>
+                   <cc:expression>props['report.input'] =  (lp.getWIDs('Custom Report (opt)') != empty ? 'customreport2/' +  context.getCustomerId() + '/' + parts[0].xpath('string(//wd:ID[@wd:type=&quot;Custom_Report_ID&quot;]/@wd:parent_id)') + '/' + props['report.name'] : null)</cc:expression>
+                  </cc:eval>
+            </cc:steps>
+            <cc:send-error id="SendError" routes-to="ErrorHandler_Main"/>
+        </cc:async-mediation>
         <cc:workday-in id="StartHere" routes-to="Initialize">
-            <cc:integration-system name="Boomerang">
-        <cloud:param name="a - Event Document Name Contains">
-          <cloud:type>
-            <cloud:simple-type>text</cloud:simple-type>
-          </cloud:type>
-        </cloud:param>
-        <cloud:param name="a - Custom Transformation">
-          <cloud:type>
-            <cloud:class-report-field description="Repository Document" type="WID" singular="false">1265f2f1996d4325b898f2eafc88b589</cloud:class-report-field>
-          </cloud:type>
-        </cloud:param>
-        <cloud:param name="b - Input Document">
-          <cloud:type>
-            <cloud:class-report-field description="Repository Document" type="WID" singular="false">1265f2f1996d4325b898f2eafc88b589</cloud:class-report-field>
-          </cloud:type>
-        </cloud:param>
-        <cloud:param name="c - Custom Report">
-          <cloud:type>
-            <cloud:class-report-field description="Custom Report" type="WID" singular="true">dfacb43894104524ad8fd749c4100a20</cloud:class-report-field>
-          </cloud:type>
-        </cloud:param>
-        <cloud:param name="c - Custom Transformation">
-          <cloud:type>
-            <cloud:class-report-field description="Repository Document" type="WID" singular="false">1265f2f1996d4325b898f2eafc88b589</cloud:class-report-field>
-          </cloud:type>
-        </cloud:param>
+            <cc:integration-system name="Boomerang-v2">
         <cloud:param name="Web Service ">
           <cloud:type>
             <cloud:class-report-field description="Web Service" type="WID" singular="true">5476ac4ab5d34986a77745357958b175</cloud:class-report-field>
@@ -46,14 +48,32 @@
           <cloud:default>
             <cloud:reference description="Staffing (Public)" type="WID">19974172229542d5b80be77d98254c8f</cloud:reference>
           </cloud:default>
+          <cloud:launch-option>required</cloud:launch-option>
         </cloud:param>
         <cloud:param name="Web Service API Version">
           <cloud:type>
             <cloud:class-report-field description="Web Service API Version" type="WID" singular="true">c3709e92a44647e29a49074d917a4609</cloud:class-report-field>
           </cloud:type>
           <cloud:default>
-            <cloud:reference description="v38.1" type="WID">a1fec0c52911100020608187720d54d3</cloud:reference>
+            <cloud:reference description="v39.1" type="WID">efb4f0b42dfd10000bab4166bfe90000</cloud:reference>
           </cloud:default>
+          <cloud:launch-option>required</cloud:launch-option>
+        </cloud:param>
+        <cloud:param name="Custom XSLT or Template (opt)">
+          <cloud:type>
+            <cloud:class-report-field description="Non-Trashed Drive Item from Prompt" type="WID" singular="true">feea52ecf5261000060ae4372d0700c2</cloud:class-report-field>
+          </cloud:type>
+          <cloud:default/>
+        </cloud:param>
+        <cloud:param name="Event Doc Name Contains (opt)">
+          <cloud:type>
+            <cloud:simple-type>text</cloud:simple-type>
+          </cloud:type>
+        </cloud:param>
+        <cloud:param name="Custom Report (opt)">
+          <cloud:type>
+            <cloud:class-report-field description="Custom Report" type="WID" singular="true">dfacb43894104524ad8fd749c4100a20</cloud:class-report-field>
+          </cloud:type>
         </cloud:param>
         <cloud:param name="Validate Only">
           <cloud:type>
@@ -62,61 +82,71 @@
         </cloud:param>
       </cc:integration-system>
         </cc:workday-in>
-        <cc:async-mediation id="Initialize" routes-to="Call_GetDocuments" handle-downstream-errors="true">
+        <cc:local-in id="DriveItemGet" routes-to="DriveSOAPRequest"/>
+        <cc:async-mediation id="DriveSOAPRequest" routes-to="WorkdayOutSoap" handle-downstream-errors="true">
             <cc:steps>
-                <cc:eval id="Init_Vars">
-                	<cc:expression>props['file.count'] = 0</cc:expression>
-                	<cc:expression>props['record.count'] = 0</cc:expression>
-                	<cc:expression>props['error.count'] = 0</cc:expression>
-                    <cc:expression>props['error.flag'] = false</cc:expression>
-                    <cc:expression>props['log.file.name'] = 'log.' + lp.parentEventWID + '.' + lp.sentOn + '.html'</cc:expression>
-               </cc:eval>
-                <cc:eval id="LParams1">
-                    <cc:expression>props['event.document.contains'] = lp.getSimpleData('a - Event Document Name Contains')</cc:expression>
-                   <cc:expression>props['input.document.reference'] = lp.getReferenceData('b - Input Document', 'Document_ID')</cc:expression>
-                    <cc:expression>props['input.document.wids'] =  lp.getWIDs('b - Input Document')</cc:expression>
-                   <cc:expression>props['input.document.wid'] =  (props['input.document.wids'] != empty ? props['input.document.wids'].get(0) : null)</cc:expression>
-                   <cc:expression>props['input.document.entry'] = (props['input.document.wid'] != null ? lp.getID('b - Input Document', 'Document_ID', props['input.document.wid']) : null)</cc:expression>
-                   <cc:expression>props['input.document.file.name'] =  (props['input.document.wid'] != null ? lp.getDescriptor('b - Input Document', props['input.document.wid']) : null)</cc:expression>
-                    <cc:expression>props['validate.only'] = lp.getSimpleData('Validate Only')</cc:expression>
-                    <cc:expression>props['validate.only.text'] = (props['validate.only'] == 1 ? &quot;Yes&quot; : &quot;No&quot;)</cc:expression>
-      
-                </cc:eval>
-               <cc:eval id="LParams2">
-                   <cc:expression>vars['custom.transform.string'] = (lp.getWIDs('c - Custom Transformation') != empty ? 'c - Custom Transformation' : 'a - Custom Transformation')</cc:expression>
-                   <cc:expression>props['custom.xslt.wids'] = (lp.getWIDs(vars['custom.transform.string'].text) != empty ? lp.getWIDs(vars['custom.transform.string'].text) : null)</cc:expression>
-                   <cc:expression>props['custom.xslt.wid'] = (props['custom.xslt.wids'] != empty ? props['custom.xslt.wids'].get(0) : null)</cc:expression>
-                   <cc:expression>props['custom.xslt.entry'] = (props['custom.xslt.wid'] != null ? lp.getID(vars['custom.transform.string'].text, 'Document_ID', props['custom.xslt.wid']) : null)</cc:expression>
-                   <cc:expression>props['custom.xslt.file.name'] =  (props['custom.xslt.wid'] != null ? lp.getDescriptor(vars['custom.transform.string'].text, props['custom.xslt.wid']) : null)</cc:expression>
-                   <cc:expression>props['custom.xslt.reference'] = lp.getReferenceData(vars['custom.transform.string'].text, 'Document_ID')</cc:expression>
-                   <cc:expression>props['report.name'] = (lp.getWIDs('c - Custom Report') != empty ? lp.getReferenceData('c - Custom Report', 'Custom_Report_ID').replace(' ', '_') : null)</cc:expression>
-                   <cc:expression>props['report.input'] =  (lp.getWIDs('c - Custom Report') != empty ? 'customreport2/' +  context.getCustomerId() + '/' + parts[0].xpath('string(//wd:ID[@wd:type=&quot;Custom_Report_ID&quot;]/@wd:parent_id)') + '/' + props['report.name'] : null)</cc:expression>
- 	               <cc:expression>props['web.service.application'] = lp.getDescriptor('Web Service', lp.getWIDs('Web Service').get(0)).replace(' (Public)','').replace(' ','_')</cc:expression>
-                   <cc:expression>props['web.service.version'] = lp.getDescriptor('Web Service API Version', lp.getWIDs('Web Service API Version').get(0))</cc:expression>
-                  </cc:eval>
-            </cc:steps>
-            <cc:send-error id="SendError" routes-to="ErrorHandler"/>
-        </cc:async-mediation>
-        <cc:async-mediation id="StoreTheFile" execute-steps-when="props['file.name'] != empty">
-            <cc:steps>
-                <cc:write id="MsgToVar" output="variable" output-variable="file.data" input="message">
+                <cc:write id="Write">
                     <cc:message>
-                        <cc:message-content/>
+                        <cc:text>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;
+&lt;env:Envelope xmlns:env=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;>&#xD;
+	&lt;env:Body>&#xD;
+		&lt;bsvc:Get_Drive_Document_Content_Request bsvc:version=&quot;v39.1&quot; xmlns:bsvc=&quot;urn:com.workday/bsvc&quot;>&#xD;
+			&lt;bsvc:Request_References>&#xD;
+				&lt;bsvc:Drive_Document_Content_Reference>&#xD;
+					&lt;bsvc:ID bsvc:type=&quot;WID&quot;>@{props['input.drive.wid']}&lt;/bsvc:ID>&#xD;
+				&lt;/bsvc:Drive_Document_Content_Reference>&#xD;
+			&lt;/bsvc:Request_References>&#xD;
+			&lt;bsvc:Request_Criteria/>&#xD;
+		&lt;/bsvc:Get_Drive_Document_Content_Request>&#xD;
+	&lt;/env:Body>&#xD;
+&lt;/env:Envelope></cc:text>
                     </cc:message>
                 </cc:write>
-                <cc:log id="Log">
-                    <cc:log-message>
-                        <cc:line-separator/>
-                        <cc:text>props['file.count'] = @{props['file.count']}&#xD;
-props['file.name'] = @{props['file.name']}&#xD;
-vars['file.data'] = @{vars['file.data']}</cc:text>
-                        <cc:line-separator/>
-                    </cc:log-message>
-                </cc:log>
-                <cc:store id="Store" output-mimetype="text/xml" input="variable" input-variable="file.data" expiresIn="P3M" summary="@{props['file.name']}" title="@{props['file.name']}"/>
             </cc:steps>
-            <cc:send-error id="SendError" routes-to="ErrorHandler_GetDocuments"/>
+            <cc:send-error id="SendError" routes-to="ErrorHandler_Drive"/>
         </cc:async-mediation>
+        <cc:workday-out-soap id="WorkdayOutSoap" routes-response-to="DriveSOAPResponse" application="Drive" version="v39.1"/>
+        <cc:async-mediation id="DriveSOAPResponse">
+            <cc:steps>
+                <cc:eval id="Eval">
+                    <cc:expression>vars['drive.file'] = parts[0].xpath('//wd:File')</cc:expression>
+                </cc:eval>
+                <cc:base64-decode id="Base64Decode" output="variable" output-mimetype="text/plain" output-variable="drive.file" input="variable" input-variable="drive.file"/>
+                <cc:eval id="XSLT_or_Template">
+                    <cc:expression>props['xslt.file'] = (vars['drive.file'] != null ? vars['drive.file'].text : null)</cc:expression>
+                    <cc:expression>props['template.file'] = (!props['xslt.file'].toString().contains('stylesheet') ? com.whitleymedia.CustomUtil.replaceBraces(props['xslt.file']) : null)</cc:expression>
+                    <cc:expression>vars['xslt.file'] = (props['template.file'] == null ? props['xslt.file'] : null)</cc:expression>
+                </cc:eval>
+                <cc:write execute-when="props['template.file'] != null" id="TemplateFileWrite" output="variable" output-variable="xslt.file">
+                    <cc:message>
+                        <cc:text>&lt;?xml version='1.0' encoding=&quot;UTF-8&quot;?>&#xD;
+&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:wd=&quot;urn:com.workday/bsvc&quot;>&#xD;
+	&lt;xsl:template match=&quot;/&quot;>&#xD;
+		&lt;env:Envelope xmlns:env=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;>&#xD;
+			&lt;env:Body>&#xD;
+				&lt;xsl:for-each select=&quot;wd:Report_Data/wd:Report_Entry&quot;>&#xD;
+					@{props['template.file']}				&#xD;
+				&lt;/xsl:for-each>&#xD;
+			&lt;/env:Body>&#xD;
+		&lt;/env:Envelope>&#xD;
+	&lt;/xsl:template>&#xD;
+&lt;/xsl:stylesheet>&#xD;
+</cc:text>
+                    </cc:message>
+                </cc:write>
+            </cc:steps>
+            <cc:send-error id="SendError" routes-to="ErrorHandler_Drive"/>
+        </cc:async-mediation>
+        <cc:local-out id="Surface-Critical-Error-to-Integration-Event" endpoint="vm://wcc/PutIntegrationMessage" propagate-abort="true">
+            <cc:set name="is.message.severity" value="'CRITICAL'"/>
+            <cc:set name="is.message.summary" value="'An unexpected exception occurred: ' + context.errorMessage"/>
+        </cc:local-out>
+        <cc:send-error id="Handle-Unexpected-Errors" routes-to="Surface-Critical-Error-to-Integration-Event"/>
+        <cc:local-out id="PutIntegrationMessage" endpoint="vm://wcc/PutIntegrationMessage">
+            <cc:set name="is.message.severity" value="'ERROR'"/>
+            <cc:set name="is.message.summary" value="context.getProperty('Summary')"/>
+            <cc:set name="is.message.detail" value="context.getProperty('Detail')"/>
+        </cc:local-out>
         <cc:async-mediation id="Log-Error" routes-to="PutIntegrationMessage">
             <cc:steps>
                 <cc:eval id="IncrementError"><cc:expression>props['error.count'] = props['error.count']+1</cc:expression>
@@ -133,21 +163,32 @@ context.getProperty('Detail') = @{context.getProperty('Detail')}</cc:text>
                 </cc:log>
             </cc:steps>
         </cc:async-mediation>
-        <cc:local-out id="Surface-Critical-Error-to-Integration-Event" endpoint="vm://wcc/PutIntegrationMessage" propagate-abort="true">
-            <cc:set name="is.message.severity" value="'CRITICAL'"/>
-            <cc:set name="is.message.summary" value="'An unexpected exception occurred: ' + context.errorMessage"/>
-        </cc:local-out>
         <cc:local-in id="LocalError" routes-to="Log-Error"/>
-        <cc:send-error id="Handle-Unexpected-Errors" routes-to="Surface-Critical-Error-to-Integration-Event"/>
-        <cc:local-in id="GetDocuments" routes-to="GetXSLTDocumentIfExists"/>
-        <cc:local-out id="Call_GetDocuments" store-message="none" routes-response-to="Call_ProcessDocument" endpoint="vm://Boomerang/GetDocuments"/>
-        <cc:local-out id="ErrorHandler" store-message="both" routes-response-to="Put_Totals" endpoint="vm://Boomerang/LocalError">
-            
-            
-            
-            
-            
-        <cc:set name="Summary" value="'Main Error'"/><cc:set name="Detail" value="context.errorMessage"/></cc:local-out>
+        <cc:async-mediation id="CloudLogStore">
+            <cc:steps>
+                <cc:cloud-log id="CloudLog" level="info" message="Counts - Files:  @{props['file.count']} | Requests:  @{props['record.count']} | Errors:  @{props['error.count']}" message-details=" "/>
+                <cc:store id="Store" output="variable" output-variable="stored-info-log" input="variable" input-variable="cloud-log-content" createDocumentReference="true" expiresIn="P3M" title="@{props['log.file.name']}"/>
+            </cc:steps>
+        </cc:async-mediation>
+        <cc:local-out id="Totals_Put" store-message="none" routes-response-to="CloudLogStore" endpoint="vm://wcc/PutIntegrationMessage">
+            <cc:set name="is.message.severity" value="'INFO'"/>
+            <cc:set name="is.message.summary" value="'Counts - Files: '+props['file.count']+' | Requests: '+props['record.count']+' | Errors: '+props['error.count']"/>
+        </cc:local-out>
+        <cc:local-out id="ErrorHandler_Main" store-message="both" endpoint="vm://Boomerang-v2/LocalError">
+            <cc:set name="Summary" value="'Main Error'"/>
+            <cc:set name="Detail" value="context.errorMessage"/>
+        </cc:local-out>
+        <cc:async-mediation id="ResultLog" execute-steps-when="props['error.flag'] == false">
+            <cc:steps>
+                <cc:copy id="Copy" output="variable" output-variable="soap.response"/>
+                <cc:cloud-log id="CloudLog" level="info" message="Web Service Request #@{props['record.count']} - Success" message-details=" @{vars['soap.response'].text}"/>
+            </cc:steps>
+        </cc:async-mediation>
+        <cc:workday-out-soap id="ProcessSOAPWebService" application="@{props['web.service.application']}" version="@{props['web.service.version']}"/>
+        <cc:local-out id="ErrorHandler_DocumentProcess" store-message="none" endpoint="vm://Boomerang-v2/LocalError">
+            <cc:set name="Summary" value="'Web Service Request #' + props['record.count'] + ' - Error'"/>
+            <cc:set name="Detail" value="context.errorMessage"/>
+        </cc:local-out>
         <cc:sync-mediation id="WebServiceRequest" routes-to="ProcessSOAPWebService" continue-after-error="recover" handle-downstream-errors="true" routes-response-to="ResultLog">
             <cc:request-steps>
                 <cc:eval id="Init">
@@ -175,43 +216,22 @@ props['validate.only'] = @{props['validate.only']}</cc:text>
                     </cc:log-message>
                 </cc:log>
                 <cc:cloud-log id="CloudLog" level="info" message="Web Service Request #@{props['record.count']} - Validate Only: @{props['validate.only.text']}" message-details="@{vars['data.request'].text} "/>
+                <cc:set-headers execute-when="props['validate.only'] == true" id="SetHeaders"><cc:remove-headers/><cc:add-headers>
+    <cc:add-header name="X-Validate-Only" value="1"/>
+</cc:add-headers></cc:set-headers>
             </cc:request-steps>
             <cc:response-steps>
             </cc:response-steps>
-            <cc:send-error id="SendError" routes-to="ErrorHandler_ProcessDocument"/>
+            <cc:send-error id="SendError" routes-to="ErrorHandler_DocumentProcess"/>
         </cc:sync-mediation>
-        <cc:local-out id="ErrorHandler_ProcessDocument" store-message="none" endpoint="vm://Boomerang/LocalError">
-            
-            
-            
-            
-            
-        <cc:set name="Summary" value="'WebServiceRequest Error - Request #' + props['record.count']"/><cc:set name="Detail" value="context.errorMessage"/></cc:local-out>
-        <cc:local-out id="Put_Totals" store-message="none" routes-response-to="StoreCloudLog" endpoint="vm://wcc/PutIntegrationMessage"><cc:set name="is.message.severity" value="'INFO'"/><cc:set name="is.message.summary" value="'Counts - Files: '+props['file.count']+' | Requests: '+props['record.count']+' | Errors: '+props['error.count']"/></cc:local-out>
-        <cc:async-mediation id="GetEventDocument" routes-to="StoreTheFile">
-            <cc:steps>
-                <cc:eval id="SetDocumentParams">
-                    <cc:expression>props['file.count'] = props['file.count'] + 1</cc:expression>
-                    <cc:expression>props['event.document.contains'] = (props['event.document.contains'] == null ? vars['wd.retrieve.variable'].fileName : props['event.document.contains'])</cc:expression>
-					<cc:expression>props['file.name'] = (vars['wd.retrieve.variable'].fileName.contains(props['event.document.contains']) == true ? vars['wd.retrieve.variable'].fileName : null)</cc:expression>
-				</cc:eval>
-                <cc:copy execute-when="props['file.name'] != empty" id="Copy" input="variable" input-variable="wd.retrieve.variable"/>
-                <cc:xslt execute-when="props['custom.xslt.entry'] != null" id="XsltIfExists" output="message" input="message" url="mctx:vars/xslt.file"/>
-            </cc:steps>
-            <cc:send-error id="SendError" routes-to="ErrorHandler_GetDocuments"/>
-        </cc:async-mediation>
-        <cc:workday-out-soap id="ProcessSOAPWebService" execute-when="props['validate.only'] != true" application="@{props['web.service.application']}" version="@{props['web.service.version']}"/>
         <cc:splitter id="ForEach">
             <cc:sub-route name="WebServiceRequest" routes-to="WebServiceRequest"/>
             <cc:xpath-splitter xpath="/*/*/*"/>
         </cc:splitter>
-        <cc:local-in id="ProcessDocument" routes-to="FileToMessage"/>
-        <cc:local-out id="Call_ProcessDocument" store-message="none" routes-response-to="Put_Totals" endpoint="vm://Boomerang/ProcessDocument"/>
-        <cc:async-mediation id="ResultLog" execute-steps-when="props['error.flag'] == false &amp;&amp; props['validate.only'] != true">
-            <cc:steps>
-                <cc:cloud-log id="CloudLog" level="info" message="Web Service Request Success - Request #@{props['record.count']}" message-details=" "/>
-            </cc:steps>
-        </cc:async-mediation>
+        <cc:local-out id="ErrorHandler_FileToMessage" store-message="none" endpoint="vm://Boomerang-v2/LocalError">
+            <cc:set name="Summary" value="'Process Document Error - File #' + props['file.count']"/>
+            <cc:set name="Detail" value="context.errorMessage"/>
+        </cc:local-out>
         <cc:async-mediation id="FileToMessage" routes-to="ForEach" handle-downstream-errors="true">
             <cc:steps>
                 <cc:write id="Write" input="variable" input-variable="file.data">
@@ -223,78 +243,83 @@ props['validate.only'] = @{props['validate.only']}</cc:text>
             </cc:steps>
             <cc:send-error id="SendError" routes-to="ErrorHandler_FileToMessage"/>
         </cc:async-mediation>
-        <cc:async-mediation id="StoreCloudLog">
-            <cc:steps>
-                <cc:cloud-log id="CloudLog" level="info" message="Counts - Files:  @{props['file.count']} | Requests:  @{props['record.count']} | Errors:  @{props['error.count']}" message-details=" "/>
-                <cc:store id="StoreCloudLog" output="variable" output-variable="stored-info-log" input="variable" input-variable="cloud-log-content" createDocumentReference="true" expiresIn="P3M" title="@{props['log.file.name']}"/>
-            </cc:steps>
-        </cc:async-mediation>
-        <cc:local-out id="GetEventDocuments" routes-response-to="Route" endpoint="vm://wcc/GetEventDocuments">
-            <cc:set name="ie.event.wid" value="lp.isSet() ? lp.getIntegrationEventWID() : null"/>
-        </cc:local-out>
-        <cc:route id="DocumentSource">
-            <cc:mvel-strategy>
-                <cc:choose-route expression="props['input.document.file.name'] == empty &amp;&amp; props['report.input'] == empty" route="EventDocument"/>
-                <cc:choose-route expression="props['input.document.file.name'] != empty &amp;&amp; props['report.input'] == empty" route="InputDocument"/>
-                <cc:choose-route expression="props['report.input'] != empty" route="CustomReport"/>
-            </cc:mvel-strategy>
-            <cc:sub-route name="EventDocument" routes-to="GetEventDocuments"/>
-            <cc:sub-route name="InputDocument" routes-to="GetInputDocument"/>
-            <cc:sub-route name="CustomReport" routes-to="WorkdayOutRest"/>
-        </cc:route>
-        <cc:async-mediation id="GetInputDocument" routes-to="StoreTheFile">
-            <cc:steps>
-                <cc:eval id="SetDocumentParams">
-                    <cc:expression>props['file.count'] = props['file.count'] + 1</cc:expression>
-                    <cc:expression>props['file.name'] = props['input.document.file.name']</cc:expression><cc:expression>props['index.of.separator'] = props['input.document.entry'].indexOf(&quot;/&quot;)</cc:expression><cc:expression>props['input.document.collection'] = props['input.document.entry'].substring(0, props['index.of.separator'])</cc:expression><cc:expression>props['input.document.entry'] = props['input.document.entry'].substring( props['index.of.separator'] + 1)</cc:expression></cc:eval>
-                <cc:validate-exp id="ValidateFileName">
-                    <cc:expression failure-message="The 'Input Document' has not been specified.">props['file.name'] != empty</cc:expression>
-                </cc:validate-exp>
-                <cc:retrieve id="RetrieveInputDocument" output="message" collection="@{props['input.document.collection']}" entry="@{props['input.document.entry']}"/>
-            </cc:steps>
-            <cc:send-error id="SendError" routes-to="ErrorHandler_GetDocuments"/>
-        </cc:async-mediation>
+        <cc:local-in id="DocumentProcess" routes-to="FileToMessage"/>
+        <cc:local-out id="Call_ReportDataGet" store-message="none" execute-when="props['report.input'] != null" routes-response-to="Call_EventDocGet" endpoint="vm://Boomerang-v2/ReportDataGet"/>
+        <cc:local-in id="ReportDataGet" routes-to="WorkdayOutRest"/>
         <cc:workday-out-rest id="WorkdayOutRest" routes-response-to="ReportTransformation" extra-path="@{props['report.input']}"/>
-        <cc:async-mediation id="ReportTransformation" routes-to="StoreTheFile">
+        <cc:async-mediation id="ReportTransformation">
             <cc:steps>
                 <cc:eval id="SetDocumentParams">
                     <cc:expression>props['file.count'] = props['file.count'] + 1</cc:expression>
                     <cc:expression>props['file.name'] = props['report.name'] + &quot;.txt&quot;</cc:expression></cc:eval>
                 <cc:validate-exp id="ValidateFileName">
-                    <cc:expression failure-message="The 'Report File' has not been specified.">props['file.name'] != empty</cc:expression>
+                    <cc:expression failure-message="The 'Report File' data could not be processed.">props['file.name'] != empty</cc:expression>
                 </cc:validate-exp>
                 <cc:xslt id="Xslt" output="message" input="message" url="mctx:vars/xslt.file"/>
             </cc:steps>
-            <cc:send-error id="SendError" routes-to="ErrorHandler_GetDocuments"/>
+            <cc:send-error id="SendError" routes-to="ErrorHandler_Report"/>
         </cc:async-mediation>
+        <cc:local-out id="ErrorHandler_Report" store-message="none" endpoint="vm://Boomerang-v2/LocalError">
+            <cc:set name="Summary" value="'Report Error'"/>
+            <cc:set name="Detail" value="context.errorMessage"/>
+        </cc:local-out>
+        <cc:async-mediation id="FileDataStore" routes-to="Call_DocumentProcess">
+            <cc:steps>
+                <cc:write id="MsgToVar" output="variable" output-variable="file.data" input="message">
+                    <cc:message>
+                        <cc:message-content/>
+                    </cc:message>
+                </cc:write>
+                <cc:log id="Log">
+                    <cc:log-message>
+                        <cc:line-separator/>
+                        <cc:text>props['file.count'] = @{props['file.count']}&#xD;
+props['file.name'] = @{props['file.name']}&#xD;
+vars['file.data'] = @{vars['file.data'].text}</cc:text>
+                        <cc:line-separator/>
+                    </cc:log-message>
+                </cc:log>
+                <cc:store id="Store" output-mimetype="text/xml" input="variable" input-variable="file.data" expiresIn="P3M" summary="@{props['file.name']}" title="@{props['file.name']}"/>
+            </cc:steps>
+            <cc:send-error id="SendError" routes-to="ErrorHandler_Main"/>
+        </cc:async-mediation>
+        <cc:local-in id="EventDocGet" routes-to="GetEventDocuments"/>
+        <cc:local-out id="GetEventDocuments" routes-response-to="Route" endpoint="vm://wcc/GetEventDocuments"><cc:set name="ie.event.wid" value="lp.isSet() ? lp.getIntegrationEventWID() : null"/></cc:local-out>
         <cc:route id="Route">
             <cc:doc-iterator labels="Deliverable" variable-name="wd.retrieve.variable"/>
-            <cc:sub-route name="FileRetrieval" routes-to="GetEventDocument"/>
+            <cc:sub-route name="FileRetrieval" routes-to="EventDocumentProcess"/>
         </cc:route>
-        <cc:local-out id="ErrorHandler_GetDocuments" store-message="none" endpoint="vm://Boomerang/LocalError">
-                    
-            
-            
-            
-            
-        <cc:set name="Summary" value="'Get Documents Error - File #' + props['file.count']"/><cc:set name="Detail" value="context.errorMessage"/></cc:local-out>
-        <cc:local-out id="PutIntegrationMessage" endpoint="vm://wcc/PutIntegrationMessage"><cc:set name="is.message.severity" value="'ERROR'"/><cc:set name="is.message.summary" value="context.getProperty('Summary')"/><cc:set name="is.message.detail" value="context.getProperty('Detail')"/></cc:local-out>
-        <cc:local-out id="ErrorHandler_FileToMessage" store-message="none" endpoint="vm://Boomerang/LocalError">
-            
-            
-            
-        <cc:set name="Summary" value="'Process Document Error - File #' + props['file.count']"/><cc:set name="Detail" value="context.errorMessage"/></cc:local-out>
-        <cc:async-mediation id="GetXSLTDocumentIfExists" routes-to="DocumentSource" execute-steps-when="props['custom.xslt.entry'] != null">
+        <cc:local-out id="Call_EventDocGet" store-message="none" execute-when="props['report.input'] == null" routes-response-to="ErrorCheck" endpoint="vm://Boomerang-v2/EventDocGet"/>
+        <cc:async-mediation id="EventDocumentProcess" handle-downstream-errors="true">
             <cc:steps>
-                <cc:eval id="SetDocumentParams"><cc:expression>props['index.of.separator'] = props['custom.xslt.entry'].indexOf(&quot;/&quot;)</cc:expression><cc:expression>props['custom.xslt.collection'] = props['custom.xslt.entry'].substring(0, props['index.of.separator'])</cc:expression><cc:expression>props['custom.xslt.entry'] = props['custom.xslt.entry'].substring( props['index.of.separator'] + 1)</cc:expression></cc:eval>
-                <cc:retrieve id="RetrieveXSLTDocument" output="variable" output-variable="xslt.file" collection="@{props['custom.xslt.collection']}" entry="@{props['custom.xslt.entry']}"/>
+                <cc:eval id="SetDocumentParams">
+                    <cc:expression>props['file.count'] = props['file.count'] + 1</cc:expression>
+                    <cc:expression>props['event.document.contains'] = (props['event.document.contains'] != null ? props['event.document.contains'] : vars['wd.retrieve.variable'].fileName)</cc:expression>
+					<cc:expression>props['file.name'] = (vars['wd.retrieve.variable'].fileName.contains(props['event.document.contains']) == true ? vars['wd.retrieve.variable'].fileName : null)</cc:expression>
+				</cc:eval>
+                <cc:copy execute-when="props['file.name'] != empty" id="Copy" input="variable" input-variable="wd.retrieve.variable"/>
+                <cc:xslt execute-when="vars['xslt.file'] != null" id="XsltIfExists" output="message" input="message" url="mctx:vars/xslt.file"/>
             </cc:steps>
-            <cc:send-error id="SendError" routes-to="ErrorHandler_GetXSLT"/>
+            <cc:send-error id="SendError" routes-to="ErrorHandler_EventDoc"/>
         </cc:async-mediation>
-        <cc:local-out id="ErrorHandler_GetXSLT" store-message="none" endpoint="vm://Boomerang/LocalError">
+        <cc:local-out id="ErrorHandler_EventDoc" store-message="none" endpoint="vm://Boomerang-v2/LocalError">
             <cc:set name="Summary" value="'Get Documents Error - File #' + props['file.count']"/>
             <cc:set name="Detail" value="context.errorMessage"/>
         </cc:local-out>
+        <cc:local-out id="Call_DocumentProcess" store-message="none" routes-response-to="Totals_Put" endpoint="vm://Boomerang-v2/DocumentProcess"/>
+        <cc:local-out id="ErrorHandler_Drive" store-message="both" endpoint="vm://Boomerang-v2/LocalError">
+            <cc:set name="Summary" value="'Drive Error'"/>
+            <cc:set name="Detail" value="context.errorMessage"/>
+        </cc:local-out>
+        <cc:async-mediation id="ErrorCheck" routes-to="FileDataStore">
+            <cc:steps>
+                <cc:eval id="ErrorFlag">
+                    <cc:expression>props['error.flag'] ? context.setAbort(true) : null</cc:expression>
+                </cc:eval>
+                <cc:validate-exp id="ValidateFileName">
+                    <cc:expression failure-message="The event document is missing the 'Deliverable' tag or could not be found.">props['file.name'] != empty</cc:expression>
+                </cc:validate-exp></cc:steps>
+        </cc:async-mediation>
 	</cc:assembly>
 
 </beans>

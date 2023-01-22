@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Boomerang</name>
+	<name>Boomerang-v2</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
+			<name>com.capeclear.wtp.facet.assembly.builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.capeclear.wtp.facet.assembly.builder</name>
+			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -36,7 +36,7 @@
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>com.workday.wtp.ws.cloud.assembly.nature</nature>
-		<nature>com.capeclear.wtp.facet.assembly.nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>com.capeclear.wtp.facet.assembly.nature</nature>
 	</natures>
 </projectDescription>

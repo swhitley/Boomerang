@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wm:manifest xmlns:wm="http://www.workday.com/solution/catalog/manifest/10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.workday.com/solution/catalog/manifest/10 http://www.workday.com/solution/catalog/manifest/10">
+   <wm:clar version="3.0"/>
+   <wm:descriptive>
+      <wm:title>Boomerang-v2</wm:title>
+      <wm:description>Sample Description</wm:description>
+      <wm:author>swhitley</wm:author>
+      <wm:timestamp>2023-01-21T14:05:22.493-08:00</wm:timestamp>
+   </wm:descriptive>
+</wm:manifest>

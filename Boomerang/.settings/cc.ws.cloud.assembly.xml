@@ -11,7 +11,7 @@
     <value class="java.lang.Boolean" key="ICcFacetInstallDataModelProperties.COPY_WSDL_FILES_ON_DEPLOY">true</value>
     <value class="java.lang.Boolean" key="ICcFacetInstallDataModelProperties.MODULE_SERVICE_NAME_CUSTOM">false</value>
     <list key="IWsCloudAssemblyFacetInstallDataModelProperties.MEMBER_OF_CLOUD_COLLECTIONS">
-        <value class="java.lang.String">Boomerang</value>
+        <value class="java.lang.String">Boomerang-v2</value>
     </list>
     <value class="java.lang.Boolean" key="ICcFacetInstallDataModelProperties.MODULE_SERVICE_NAME_VERSION">false</value>
     <value class="java.lang.Boolean" key="ICcFacetInstallDataModelProperties.EXPORT_REFERENCED_WEBSERVICE_PROJECT_CLASSPATH">false</value>

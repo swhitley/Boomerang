@@ -1,306 +1,319 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wdnm:Diagram xmlns:wdnm="http://workday.com/studio/editors/notation">
   <element href="assembly.xml#WorkdayAssembly"/>
-  <visualProperties x="78" y="130">
+  <visualProperties>
     <element href="assembly.xml#StartHere"/>
   </visualProperties>
-  <visualProperties x="257" y="74">
+  <visualProperties>
     <element href="assembly.xml#Initialize"/>
   </visualProperties>
-  <visualProperties x="935" y="556">
-    <element href="assembly.xml#StoreTheFile"/>
+  <visualProperties>
+    <element href="assembly.xml#Call_DriveItemGet"/>
   </visualProperties>
-  <visualProperties x="96" y="1936">
-    <element href="assembly.xml#//@beans/@mixed.1/@mixed.13"/>
+  <visualProperties x="39" y="547">
+    <element href="assembly.xml#DriveItemGet"/>
   </visualProperties>
-  <visualProperties x="87" y="1784">
-    <element href="assembly.xml#LocalError"/>
+  <visualProperties x="213" y="558">
+    <element href="assembly.xml#DriveSOAPRequest"/>
   </visualProperties>
-  <visualProperties x="397" y="1936">
+  <visualProperties x="407" y="633">
+    <element href="assembly.xml#WorkdayOutSoap"/>
+  </visualProperties>
+  <visualProperties x="576" y="666">
+    <element href="assembly.xml#DriveSOAPResponse"/>
+  </visualProperties>
+  <visualProperties>
+    <element href="assembly.xml#//@beans/@mixed.1/@mixed.17"/>
+  </visualProperties>
+  <visualProperties>
     <element href="assembly.xml#Surface-Critical-Error-to-Integration-Event"/>
   </visualProperties>
-  <visualProperties x="357" y="1741">
+  <visualProperties>
+    <element href="assembly.xml#LocalError"/>
+  </visualProperties>
+  <visualProperties>
     <element href="assembly.xml#Log-Error"/>
   </visualProperties>
-  <visualProperties x="190" y="520">
-    <element href="assembly.xml#GetDocuments"/>
-  </visualProperties>
-  <visualProperties x="578" y="46">
-    <element href="assembly.xml#Call_GetDocuments"/>
-  </visualProperties>
-  <visualProperties x="329" y="219">
-    <element href="assembly.xml#ErrorHandler"/>
-  </visualProperties>
-  <visualProperties x="629" y="977">
-    <element href="assembly.xml#WebServiceRequest"/>
-  </visualProperties>
-  <visualProperties x="639" y="1331">
-    <element href="assembly.xml#ErrorHandler_ProcessDocument"/>
-  </visualProperties>
-  <visualProperties x="1156" y="101">
-    <element href="assembly.xml#Put_Totals"/>
-  </visualProperties>
-  <visualProperties x="222" y="590">
-    <element href="assembly.xml#GetEventDocument"/>
-  </visualProperties>
-  <visualProperties x="1015" y="982">
-    <element href="assembly.xml#ProcessSOAPWebService"/>
-  </visualProperties>
-  <visualProperties x="376" y="977">
-    <element href="assembly.xml#ForEach"/>
-  </visualProperties>
-  <visualProperties x="43" y="977">
-    <element href="assembly.xml#ProcessDocument"/>
-  </visualProperties>
-  <visualProperties x="828" y="109">
-    <element href="assembly.xml#Call_ProcessDocument"/>
-  </visualProperties>
-  <visualProperties x="1055" y="1076">
-    <element href="assembly.xml#ResultLog"/>
-  </visualProperties>
-  <visualProperties x="143" y="1056">
-    <element href="assembly.xml#FileToMessage"/>
-  </visualProperties>
-  <visualProperties x="1351" y="353">
-    <element href="assembly.xml#StoreCloudLog"/>
-  </visualProperties>
-  <visualProperties x="1273" y="418">
-    <element href="assembly.xml#GetEventDocuments"/>
-  </visualProperties>
-  <visualProperties x="232" y="222">
-    <element href="assembly.xml#DocumentSource"/>
-  </visualProperties>
-  <visualProperties x="755" y="510">
-    <element href="assembly.xml#GetInputDocument"/>
-  </visualProperties>
-  <visualProperties x="383" y="166">
-    <element href="assembly.xml#WorkdayOutRest"/>
-  </visualProperties>
-  <visualProperties x="1513" y="553">
-    <element href="assembly.xml#ReportTransformation"/>
-  </visualProperties>
-  <visualProperties x="1012" y="319">
-    <element href="assembly.xml#Route"/>
-  </visualProperties>
-  <visualProperties x="1317" y="538">
-    <element href="assembly.xml#ErrorHandler_GetDocuments"/>
-  </visualProperties>
-  <visualProperties x="470" y="1521">
+  <visualProperties>
     <element href="assembly.xml#PutIntegrationMessage"/>
   </visualProperties>
-  <visualProperties x="840" y="1316">
+  <visualProperties x="925" y="202">
+    <element href="assembly.xml#Totals_Put"/>
+  </visualProperties>
+  <visualProperties x="1097" y="202">
+    <element href="assembly.xml#CloudLogStore"/>
+  </visualProperties>
+  <visualProperties x="1257" y="463">
+    <element href="assembly.xml#ErrorHandler_Main"/>
+  </visualProperties>
+  <visualProperties>
+    <element href="assembly.xml#DocumentProcess"/>
+  </visualProperties>
+  <visualProperties>
+    <element href="assembly.xml#FileToMessage"/>
+  </visualProperties>
+  <visualProperties>
     <element href="assembly.xml#ErrorHandler_FileToMessage"/>
   </visualProperties>
-  <visualProperties x="1612" y="728">
-    <element href="assembly.xml#GetXSLTDocumentIfExists"/>
+  <visualProperties>
+    <element href="assembly.xml#ForEach"/>
   </visualProperties>
-  <visualProperties x="510" y="478">
-    <element href="assembly.xml#ErrorHandler_GetXSLT"/>
+  <visualProperties>
+    <element href="assembly.xml#WebServiceRequest"/>
   </visualProperties>
-  <decorations x="10" y="-3" width="427" height="51" font="Arial|16|3" fontColor="1" type="TEXT" text="Boomerang"/>
-  <decorations x="18" y="1419" width="-1" height="-1" font="Segoe UI|18|1" type="TEXT" text=""/>
-  <decorations x="18" y="47" width="638" height="42" font="MS Sans Serif|10|1" fontColor="1" type="TEXT" text="v1.2.0"/>
+  <visualProperties>
+    <element href="assembly.xml#ErrorHandler_DocumentProcess"/>
+  </visualProperties>
+  <visualProperties>
+    <element href="assembly.xml#ProcessSOAPWebService"/>
+  </visualProperties>
+  <visualProperties>
+    <element href="assembly.xml#ResultLog"/>
+  </visualProperties>
+  <visualProperties x="1097" y="497">
+    <element href="assembly.xml#Call_ReportDataGet"/>
+  </visualProperties>
+  <visualProperties x="293" y="775">
+    <element href="assembly.xml#ReportDataGet"/>
+  </visualProperties>
+  <visualProperties x="686" y="825">
+    <element href="assembly.xml#WorkdayOutRest"/>
+  </visualProperties>
+  <visualProperties x="1132" y="800">
+    <element href="assembly.xml#ReportTransformation"/>
+  </visualProperties>
+  <visualProperties x="1182" y="869">
+    <element href="assembly.xml#ErrorHandler_Report"/>
+  </visualProperties>
+  <visualProperties x="1351" y="372">
+    <element href="assembly.xml#FileDataStore"/>
+  </visualProperties>
+  <visualProperties x="69" y="1049">
+    <element href="assembly.xml#EventDocGet"/>
+  </visualProperties>
+  <visualProperties x="215" y="1061">
+    <element href="assembly.xml#GetEventDocuments"/>
+  </visualProperties>
+  <visualProperties x="573" y="1175">
+    <element href="assembly.xml#Route"/>
+  </visualProperties>
+  <visualProperties x="1117" y="556">
+    <element href="assembly.xml#Call_EventDocGet"/>
+  </visualProperties>
+  <visualProperties x="1177" y="1207">
+    <element href="assembly.xml#EventDocumentProcess"/>
+  </visualProperties>
+  <visualProperties x="1422" y="972">
+    <element href="assembly.xml#ErrorHandler_EventDoc"/>
+  </visualProperties>
+  <visualProperties x="1459" y="363">
+    <element href="assembly.xml#Call_DocumentProcess"/>
+  </visualProperties>
+  <visualProperties x="1166" y="814">
+    <element href="assembly.xml#ErrorHandler_Drive"/>
+  </visualProperties>
+  <visualProperties x="758" y="309">
+    <element href="assembly.xml#ErrorCheck"/>
+  </visualProperties>
+  <decorations x="12" y="18" width="427" height="63" font="Arial|16|3" fontColor="1" type="TEXT" text="Boomerang"/>
+  <decorations x="12" y="80" width="638" height="42" font="MS Sans Serif|10|1" fontColor="1" type="TEXT" text="v2.0.0"/>
   <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.6756756756756757" targetAnchorX="0.03488372093023256" targetAnchorY="0.25">
     <source href="assembly.xml#StartHere"/>
     <target href="assembly.xml#Initialize"/>
   </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.32653061224489793" targetAnchorX="0.19095477386934673" targetAnchorY="0.43243243243243246">
+    <source href="assembly.xml#DriveSOAPRequest"/>
+    <target href="assembly.xml#WorkdayOutSoap"/>
+  </connections>
+  <connections type="routesResponseTo" sourceAnchorX="0.7085427135678392" sourceAnchorY="1.0" targetAnchorX="0.25280898876404495" targetAnchorY="0.22826086956521738">
+    <source href="assembly.xml#WorkdayOutSoap"/>
+    <target href="assembly.xml#DriveSOAPResponse"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.70625" sourceAnchorY="1.0" targetAnchorX="0.17261904761904762" targetAnchorY="0.3163265306122449">
+    <source href="assembly.xml#DriveItemGet"/>
+    <target href="assembly.xml#DriveSOAPRequest"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.20930232558139536" targetAnchorX="0.30414746543778803" targetAnchorY="0.4594594594594595">
+    <source href="assembly.xml#Initialize"/>
+    <target href="assembly.xml#Call_DriveItemGet"/>
+  </connections>
   <connections type="routesTo" sourceAnchorX="0.970873786407767" sourceAnchorY="0.425" targetAnchorX="0.11666666666666667" targetAnchorY="0.375">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.13"/>
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.17"/>
     <target href="assembly.xml#Surface-Critical-Error-to-Integration-Event"/>
   </connections>
   <connections type="routesTo">
     <source href="assembly.xml#LocalError"/>
     <target href="assembly.xml#Log-Error"/>
   </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.39361702127659576" targetAnchorX="0.07926829268292683" targetAnchorY="0.43243243243243246">
-    <source href="assembly.xml#Initialize"/>
-    <target href="assembly.xml#Call_GetDocuments"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="0.5126050420168067" sourceAnchorY="1.0" targetAnchorX="0.4895833333333333" targetAnchorY="0.2702702702702703">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.3/@mixed.3"/>
-    <target href="assembly.xml#ErrorHandler"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.11764705882352941" targetAnchorX="0.4369369369369369" targetAnchorY="0.4864864864864865">
-    <source href="assembly.xml#WebServiceRequest"/>
-    <target href="assembly.xml#ProcessSOAPWebService"/>
-  </connections>
-  <connections type="routesResponseTo" sourceAnchorX="1.0" sourceAnchorY="0.32432432432432434" targetAnchorX="0.5123152709359606" targetAnchorY="0.4864864864864865">
-    <source href="assembly.xml#Call_GetDocuments"/>
-    <target href="assembly.xml#Call_ProcessDocument"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="0.5096153846153846" sourceAnchorY="1.0" targetAnchorX="0.2608695652173913" targetAnchorY="0.16042780748663102">
-    <source href="assembly.xml#//@beans/@mixed.1/@splitter.0/@subRoute.0"/>
-    <target href="assembly.xml#WebServiceRequest"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.5675675675675675" targetAnchorX="0.6258992805755396" targetAnchorY="0.25">
-    <source href="assembly.xml#ProcessDocument"/>
-    <target href="assembly.xml#FileToMessage"/>
-  </connections>
-  <connections type="routesResponseTo" sourceAnchorX="1.0" sourceAnchorY="0.7213114754098361" targetAnchorX="0.1652892561983471" targetAnchorY="0.21875">
-    <source href="assembly.xml#WebServiceRequest"/>
-    <target href="assembly.xml#ResultLog"/>
-  </connections>
-  <connections type="routesResponseTo" sourceAnchorX="0.92" sourceAnchorY="1.0" targetAnchorX="0.3125" targetAnchorY="0.15625">
-    <source href="assembly.xml#Put_Totals"/>
-    <target href="assembly.xml#StoreCloudLog"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="0.918918918918919" sourceAnchorY="1.0" targetAnchorX="0.3005181347150259" targetAnchorY="0.6486486486486487">
-    <source href="assembly.xml#//@beans/@mixed.1/@route.0/@subRoute.0"/>
-    <target href="assembly.xml#GetEventDocuments"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.6764705882352942" targetAnchorX="0.006269592476489028" targetAnchorY="0.11458333333333333">
-    <source href="assembly.xml#//@beans/@mixed.1/@route.0/@subRoute.1"/>
-    <target href="assembly.xml#GetInputDocument"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.3125" targetAnchorX="0.022321428571428572" targetAnchorY="0.75">
-    <source href="assembly.xml#GetInputDocument"/>
-    <target href="assembly.xml#StoreTheFile"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.7058823529411765" targetAnchorX="0.13529411764705881" targetAnchorY="0.32432432432432434">
-    <source href="assembly.xml#//@beans/@mixed.1/@route.0/@subRoute.2"/>
-    <target href="assembly.xml#WorkdayOutRest"/>
-  </connections>
-  <connections type="routesResponseTo" sourceAnchorX="0.8823529411764706" sourceAnchorY="1.0" targetAnchorX="0.010615711252653927" targetAnchorY="0.16666666666666666">
-    <source href="assembly.xml#WorkdayOutRest"/>
-    <target href="assembly.xml#ReportTransformation"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.2604166666666667" targetAnchorX="0.026785714285714284" targetAnchorY="0.53125">
-    <source href="assembly.xml#ReportTransformation"/>
-    <target href="assembly.xml#StoreTheFile"/>
-  </connections>
-  <connections type="routesResponseTo" sourceAnchorX="0.7464788732394366" sourceAnchorY="1.0" targetAnchorX="0.272" targetAnchorY="0.40540540540540543">
-    <source href="assembly.xml#Call_ProcessDocument"/>
-    <target href="assembly.xml#Put_Totals"/>
-  </connections>
-  <connections type="routesResponseTo" sourceAnchorX="0.7772020725388601" sourceAnchorY="1.0" targetAnchorX="0.7878787878787878" targetAnchorY="0.04878048780487805">
-    <source href="assembly.xml#GetEventDocuments"/>
-    <target href="assembly.xml#Route"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.5588235294117647" targetAnchorX="0.15673981191222572" targetAnchorY="0.23622047244094488">
-    <source href="assembly.xml#//@beans/@mixed.1/@route.1/@subRoute.0"/>
-    <target href="assembly.xml#GetEventDocument"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="0.31203007518796994" sourceAnchorY="1.0" targetAnchorX="0.5137254901960784" targetAnchorY="0.43243243243243246">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.5/@mixed.3"/>
-    <target href="assembly.xml#ErrorHandler_GetDocuments"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="0.49282296650717705" sourceAnchorY="1.0" targetAnchorX="0.08235294117647059" targetAnchorY="0.21621621621621623">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.27/@mixed.3"/>
-    <target href="assembly.xml#ErrorHandler_GetDocuments"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="0.375" sourceAnchorY="1.0" targetAnchorX="0.1803921568627451" targetAnchorY="0.7567567567567568" curveType="curved">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.47/@mixed.3"/>
-    <target href="assembly.xml#ErrorHandler_GetDocuments"/>
-    <bendpoints sourceX="342" sourceY="61" targetX="3" targetY="131"/>
-  </connections>
-  <connections type="routesTo" sourceAnchorX="0.20817120622568094" sourceAnchorY="1.0" targetAnchorX="0.4470588235294118" targetAnchorY="0.7297297297297297" curveType="curved">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.51/@mixed.3"/>
-    <target href="assembly.xml#ErrorHandler_GetDocuments"/>
-    <bendpoints sourceX="503" sourceY="94" targetX="63" targetY="282"/>
-  </connections>
-  <connections type="routesResponseTo" sourceAnchorX="0.8571428571428571" sourceAnchorY="1.0" targetAnchorX="0.2" targetAnchorY="0.7027027027027027">
-    <source href="assembly.xml#ErrorHandler"/>
-    <target href="assembly.xml#Put_Totals"/>
-  </connections>
   <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.3125" targetAnchorX="0.3121951219512195" targetAnchorY="0.40540540540540543">
     <source href="assembly.xml#Log-Error"/>
     <target href="assembly.xml#PutIntegrationMessage"/>
   </connections>
-  <connections type="routesTo" sourceAnchorX="0.4444444444444444" sourceAnchorY="1.0" targetAnchorX="0.5608856088560885" targetAnchorY="0.2972972972972973">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.21/@mixed.5"/>
-    <target href="assembly.xml#ErrorHandler_ProcessDocument"/>
+  <connections type="routesResponseTo" sourceAnchorX="0.92" sourceAnchorY="1.0" targetAnchorX="0.3125" targetAnchorY="0.15625">
+    <source href="assembly.xml#Totals_Put"/>
+    <target href="assembly.xml#CloudLogStore"/>
   </connections>
-  <connections type="routesTo" sourceAnchorX="0.45121951219512196" sourceAnchorY="1.0" targetAnchorX="0.4838709677419355" targetAnchorY="0.32432432432432434">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.39/@mixed.3"/>
-    <target href="assembly.xml#ErrorHandler_FileToMessage"/>
+  <connections type="routesTo" sourceAnchorX="0.8214285714285714" sourceAnchorY="1.0" targetAnchorX="0.10625" targetAnchorY="0.4594594594594595">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.3/@mixed.3"/>
+    <target href="assembly.xml#ErrorHandler_Main"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.5675675675675675" targetAnchorX="0.6258992805755396" targetAnchorY="0.25">
+    <source href="assembly.xml#DocumentProcess"/>
+    <target href="assembly.xml#FileToMessage"/>
   </connections>
   <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.14173228346456693" targetAnchorX="0.11764705882352941" targetAnchorY="0.1402439024390244">
     <source href="assembly.xml#FileToMessage"/>
     <target href="assembly.xml#ForEach"/>
   </connections>
-  <connections type="routesTo" sourceAnchorX="0.7857142857142857" sourceAnchorY="1.0" targetAnchorX="0.08254716981132075" targetAnchorY="0.088">
-    <source href="assembly.xml#GetDocuments"/>
-    <target href="assembly.xml#GetXSLTDocumentIfExists"/>
+  <connections type="routesTo" sourceAnchorX="0.45121951219512196" sourceAnchorY="1.0" targetAnchorX="0.4838709677419355" targetAnchorY="0.32432432432432434">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.43/@mixed.3"/>
+    <target href="assembly.xml#ErrorHandler_FileToMessage"/>
   </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.144" targetAnchorX="0.2727272727272727" targetAnchorY="0.05421686746987952">
-    <source href="assembly.xml#GetXSLTDocumentIfExists"/>
-    <target href="assembly.xml#DocumentSource"/>
+  <connections type="routesTo" sourceAnchorX="0.5096153846153846" sourceAnchorY="1.0" targetAnchorX="0.2608695652173913" targetAnchorY="0.16042780748663102">
+    <source href="assembly.xml#//@beans/@mixed.1/@splitter.0/@subRoute.0"/>
+    <target href="assembly.xml#WebServiceRequest"/>
   </connections>
-  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.232" targetAnchorX="0.25925925925925924" targetAnchorY="0.136">
-    <source href="assembly.xml#GetEventDocument"/>
-    <target href="assembly.xml#StoreTheFile"/>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.11764705882352941" targetAnchorX="0.4369369369369369" targetAnchorY="0.4864864864864865">
+    <source href="assembly.xml#WebServiceRequest"/>
+    <target href="assembly.xml#ProcessSOAPWebService"/>
   </connections>
-  <connections type="routesTo" sourceAnchorX="0.373134328358209" sourceAnchorY="1.0" targetAnchorX="0.6868131868131868" targetAnchorY="0.3783783783783784">
-    <source href="assembly.xml#//@beans/@mixed.1/@mixed.61/@mixed.3"/>
-    <target href="assembly.xml#ErrorHandler_GetXSLT"/>
+  <connections type="routesResponseTo" sourceAnchorX="1.0" sourceAnchorY="0.7213114754098361" targetAnchorX="0.1652892561983471" targetAnchorY="0.21875">
+    <source href="assembly.xml#WebServiceRequest"/>
+    <target href="assembly.xml#ResultLog"/>
   </connections>
-  <swimlanes x="18" y="103" name="Main">
+  <connections type="routesTo" sourceAnchorX="0.4444444444444444" sourceAnchorY="1.0" targetAnchorX="0.5608856088560885" targetAnchorY="0.2972972972972973">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.37/@mixed.5"/>
+    <target href="assembly.xml#ErrorHandler_DocumentProcess"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.8033707865168539" sourceAnchorY="1.0" targetAnchorX="0.04639175257731959" targetAnchorY="0.4864864864864865">
+    <source href="assembly.xml#ReportDataGet"/>
+    <target href="assembly.xml#WorkdayOutRest"/>
+  </connections>
+  <connections type="routesResponseTo" sourceAnchorX="0.7371134020618557" sourceAnchorY="1.0" targetAnchorX="0.025906735751295335" targetAnchorY="0.08527131782945736">
+    <source href="assembly.xml#WorkdayOutRest"/>
+    <target href="assembly.xml#ReportTransformation"/>
+  </connections>
+  <connections type="routesResponseTo" sourceAnchorX="0.7574257425742574" sourceAnchorY="1.0" targetAnchorX="0.7351598173515982" targetAnchorY="0.8108108108108109">
+    <source href="assembly.xml#Call_DriveItemGet"/>
+    <target href="assembly.xml#Call_ReportDataGet"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.6415094339622641" sourceAnchorY="1.0" targetAnchorX="0.85" targetAnchorY="0.40540540540540543">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.57/@mixed.3"/>
+    <target href="assembly.xml#ErrorHandler_Main"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.812206572769953" sourceAnchorY="1.0" targetAnchorX="0.1981981981981982" targetAnchorY="0.4864864864864865">
+    <source href="assembly.xml#EventDocGet"/>
+    <target href="assembly.xml#GetEventDocuments"/>
+  </connections>
+  <connections type="routesResponseTo" sourceAnchorX="0.5315315315315315" sourceAnchorY="1.0" targetAnchorX="0.13157894736842105" targetAnchorY="0.06321839080459771">
+    <source href="assembly.xml#GetEventDocuments"/>
+    <target href="assembly.xml#Route"/>
+  </connections>
+  <connections type="routesResponseTo" sourceAnchorX="0.7808219178082192" sourceAnchorY="1.0" targetAnchorX="0.7903930131004366" targetAnchorY="0.6216216216216216">
+    <source href="assembly.xml#Call_ReportDataGet"/>
+    <target href="assembly.xml#Call_EventDocGet"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.8633093525179856" sourceAnchorY="1.0" targetAnchorX="0.0058309037900874635" targetAnchorY="0.3488372093023256">
+    <source href="assembly.xml#//@beans/@mixed.1/@route.0/@subRoute.0"/>
+    <target href="assembly.xml#EventDocumentProcess"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.8422619047619048" sourceAnchorY="1.0" targetAnchorX="0.43162393162393164" targetAnchorY="0.4864864864864865">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.67/@mixed.3"/>
+    <target href="assembly.xml#ErrorHandler_EventDoc"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.21705426356589147" targetAnchorX="0.36885245901639346" targetAnchorY="0.40540540540540543">
+    <source href="assembly.xml#FileDataStore"/>
+    <target href="assembly.xml#Call_DocumentProcess"/>
+  </connections>
+  <connections type="routesResponseTo" sourceAnchorX="0.7213114754098361" sourceAnchorY="1.0" targetAnchorX="0.21830985915492956" targetAnchorY="0.40540540540540543">
+    <source href="assembly.xml#Call_DocumentProcess"/>
+    <target href="assembly.xml#Totals_Put"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.6181818181818182" sourceAnchorY="1.0" targetAnchorX="0.7941176470588235" targetAnchorY="0.4594594594594595">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.13/@mixed.3"/>
+    <target href="assembly.xml#ErrorHandler_Drive"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.6528497409326425" sourceAnchorY="1.0" targetAnchorX="0.11176470588235295" targetAnchorY="0.5675675675675675">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.9/@mixed.3"/>
+    <target href="assembly.xml#ErrorHandler_Drive"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="0.9604221635883905" sourceAnchorY="1.0" targetAnchorX="0.42410714285714285" targetAnchorY="0.16216216216216217">
+    <source href="assembly.xml#//@beans/@mixed.1/@mixed.53/@mixed.3"/>
+    <target href="assembly.xml#ErrorHandler_Report"/>
+  </connections>
+  <connections type="routesResponseTo" sourceAnchorX="0.9463414634146341" sourceAnchorY="1.0" targetAnchorX="0.047619047619047616" targetAnchorY="0.16304347826086957">
+    <source href="assembly.xml#Call_EventDocGet"/>
+    <target href="assembly.xml#ErrorCheck"/>
+  </connections>
+  <connections type="routesTo" sourceAnchorX="1.0" sourceAnchorY="0.21739130434782608" targetAnchorX="0.006493506493506494" targetAnchorY="0.7054263565891473">
+    <source href="assembly.xml#ErrorCheck"/>
+    <target href="assembly.xml#FileDataStore"/>
+  </connections>
+  <swimlanes name="" orientation="VERTICAL">
+    <elements href="assembly.xml#Call_DriveItemGet"/>
+    <elements href="assembly.xml#Call_ReportDataGet"/>
+    <elements href="assembly.xml#Call_EventDocGet"/>
+    <elements href="assembly.xml#ErrorHandler_Main"/>
+  </swimlanes>
+  <swimlanes x="12" y="152" name="Main">
     <elements href="assembly.xml#StartHere"/>
     <elements href="assembly.xml#Initialize"/>
-    <elements href="#//@swimlanes.1"/>
-    <elements href="assembly.xml#Call_ProcessDocument"/>
-    <elements href="assembly.xml#Put_Totals"/>
-    <elements href="assembly.xml#StoreCloudLog"/>
+    <elements href="#//@swimlanes.0"/>
+    <elements href="assembly.xml#ErrorCheck"/>
+    <elements href="assembly.xml#FileDataStore"/>
+    <elements href="assembly.xml#Call_DocumentProcess"/>
+    <elements href="assembly.xml#Totals_Put"/>
+    <elements href="assembly.xml#CloudLogStore"/>
   </swimlanes>
-  <swimlanes x="485" y="282" name="" orientation="VERTICAL">
-    <elements href="assembly.xml#Call_GetDocuments"/>
-    <elements href="assembly.xml#ErrorHandler"/>
+  <swimlanes x="12" y="607" name="Drive">
+    <elements href="assembly.xml#DriveItemGet"/>
+    <elements href="assembly.xml#DriveSOAPRequest"/>
+    <elements href="#//@swimlanes.11"/>
+    <elements href="assembly.xml#DriveSOAPResponse"/>
   </swimlanes>
-  <swimlanes x="20" y="348" name="Get Documents">
-    <elements href="assembly.xml#GetDocuments"/>
-    <elements href="#//@swimlanes.13"/>
-    <elements href="assembly.xml#DocumentSource"/>
-    <elements href="#//@swimlanes.9"/>
-    <elements href="#//@swimlanes.8"/>
-    <elements href="#//@swimlanes.10"/>
+  <swimlanes x="15" y="2355" name="Global Error Handler">
+    <elements href="assembly.xml#//@beans/@mixed.1/@mixed.17"/>
+    <elements href="assembly.xml#Surface-Critical-Error-to-Integration-Event"/>
   </swimlanes>
-  <swimlanes x="26" y="930" name="Process Document">
-    <elements href="assembly.xml#ProcessDocument"/>
-    <elements href="#//@swimlanes.12"/>
-    <elements href="assembly.xml#ForEach"/>
-    <elements href="#//@swimlanes.5"/>
-    <elements href="#//@swimlanes.4"/>
-  </swimlanes>
-  <swimlanes x="993" y="981" name="" orientation="VERTICAL">
-    <elements href="assembly.xml#ProcessSOAPWebService"/>
-    <elements href="assembly.xml#ResultLog"/>
-  </swimlanes>
-  <swimlanes x="574" y="1085" name="" orientation="VERTICAL">
-    <elements href="assembly.xml#WebServiceRequest"/>
-    <elements href="assembly.xml#ErrorHandler_ProcessDocument"/>
-  </swimlanes>
-  <swimlanes x="26" y="1327" name="Local Error Handler">
+  <swimlanes x="15" y="2137" name="Local Error Handler">
     <elements href="assembly.xml#LocalError"/>
     <elements href="assembly.xml#Log-Error"/>
     <elements href="assembly.xml#PutIntegrationMessage"/>
   </swimlanes>
-  <swimlanes x="26" y="1505" name="Global Error Handler">
-    <elements href="assembly.xml#//@beans/@mixed.1/@mixed.13"/>
-    <elements href="assembly.xml#Surface-Critical-Error-to-Integration-Event"/>
-  </swimlanes>
-  <swimlanes x="491" y="494" orientation="VERTICAL">
-    <elements href="assembly.xml#GetEventDocument"/>
-    <elements href="assembly.xml#GetInputDocument"/>
-    <elements href="assembly.xml#ReportTransformation"/>
-  </swimlanes>
-  <swimlanes x="477" y="506" name="" orientation="VERTICAL">
-    <elements href="#//@swimlanes.11"/>
-    <elements href="assembly.xml#WorkdayOutRest"/>
-  </swimlanes>
-  <swimlanes x="1292" y="432" name="" orientation="VERTICAL" labelAlignment="LEFT">
-    <elements href="assembly.xml#StoreTheFile"/>
-    <elements href="assembly.xml#ErrorHandler_GetDocuments"/>
-  </swimlanes>
-  <swimlanes x="436" y="401" name="">
-    <elements href="assembly.xml#GetEventDocuments"/>
-    <elements href="assembly.xml#Route"/>
-  </swimlanes>
-  <swimlanes x="242" y="1162" name="" orientation="VERTICAL">
+  <swimlanes name="" orientation="VERTICAL">
     <elements href="assembly.xml#FileToMessage"/>
     <elements href="assembly.xml#ErrorHandler_FileToMessage"/>
   </swimlanes>
-  <swimlanes x="148" y="477" orientation="VERTICAL">
-    <elements href="assembly.xml#GetXSLTDocumentIfExists"/>
-    <elements href="assembly.xml#ErrorHandler_GetXSLT"/>
+  <swimlanes name="" orientation="VERTICAL">
+    <elements href="assembly.xml#WebServiceRequest"/>
+    <elements href="assembly.xml#ErrorHandler_DocumentProcess"/>
+  </swimlanes>
+  <swimlanes name="" orientation="VERTICAL">
+    <elements href="assembly.xml#ProcessSOAPWebService"/>
+    <elements href="assembly.xml#ResultLog"/>
+  </swimlanes>
+  <swimlanes x="15" y="1537" name="Document Process">
+    <elements href="assembly.xml#DocumentProcess"/>
+    <elements href="#//@swimlanes.5"/>
+    <elements href="assembly.xml#ForEach"/>
+    <elements href="#//@swimlanes.6"/>
+    <elements href="#//@swimlanes.7"/>
+  </swimlanes>
+  <swimlanes x="12" y="909" name="Report">
+    <elements href="assembly.xml#ReportDataGet"/>
+    <elements href="assembly.xml#WorkdayOutRest"/>
+    <elements href="assembly.xml#ReportTransformation"/>
+    <elements href="assembly.xml#ErrorHandler_Report"/>
+  </swimlanes>
+  <swimlanes x="12" y="1179" name="EventDocuments">
+    <elements href="assembly.xml#EventDocGet"/>
+    <elements href="assembly.xml#GetEventDocuments"/>
+    <elements href="assembly.xml#Route"/>
+    <elements href="assembly.xml#EventDocumentProcess"/>
+    <elements href="assembly.xml#ErrorHandler_EventDoc"/>
+  </swimlanes>
+  <swimlanes x="446" y="765" name="" orientation="VERTICAL">
+    <elements href="assembly.xml#WorkdayOutSoap"/>
+    <elements href="assembly.xml#ErrorHandler_Drive"/>
   </swimlanes>
 </wdnm:Diagram>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/com.workday.cloud.jst.server.runtimeTarget.wdscl/Workday Runtime">
-		<attributes>
-			<attribute name="owner.project.facets" value="cc.ws.cloud.assembly"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.capeclear.wtp.ws.container">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/com.workday.cloud.jst.server.runtimeTarget.wdscl/Workday Runtime">
+		<attributes>
+			<attribute name="owner.project.facets" value="cc.ws.cloud.assembly"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
