@@ -62,7 +62,7 @@ For the EIB solution, you may only need to set the `Web Service` and `Web Servic
 
 1. **Web Service** - This is the Workday Web Service that matches your SOAP request (operation).  See the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html).
 2. **Web Service API Version** - The Workday Web Service version that matches your request.
-3. **Custom XSLT or Template (opt)** - A Workday Drive document that can be used to transform report input if the transformation did not occur in an EIB (see **Custom Transformation** for more information).
+3. **Custom XSLT or Template (opt)** - The parameter may be left blank. The parameter points to a Workday Drive document that can be used to transform report input if the transformation did not occur in an EIB (see **Custom Transformation** for more information).
 4. **Event Doc Name Contains (opt)** - The parameter may be left blank. If there are multiple deliverable documents from an EIB, use this parameter to match the name of the desired deliverable document.- 
 6. **Custom Report (opt)** - This parameter is not needed if the report input is coming from an EIB.  To use this parameter, select a Workday report. The **Custom XSLT or Template (opt)** parameter must be used in conjunction with this parameter. Boomerang does not support reports with prompts at this time.
 7. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will be performed in valide-only mode.
