@@ -57,8 +57,7 @@ There are three options for launching Boomerang. Depending on the option you sel
 
 ### (Step 7 Above) Configure the Boomerang integration
 
-![image](https://user-images.githubusercontent.com/413552/129071201-40fa7c4d-2f01-4262-9ee5-0ff1819b6b59.png)
-
+<img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
 
 ### Sample Custom Report
 
