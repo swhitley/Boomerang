@@ -54,14 +54,20 @@ An EIB is often used as input to `Boomerang`, but it is also possible to run Boo
 
 ## Launch Parameters
 
-There are three options for launching Boomerang. Depending on the option you select, you must leave the parameters for the other options blank.
+For the EIB solution, you may only need to set the `Web Service` and `Web Service API Version` parameters. Leave all other parameters blank if the report was already transformed in an EIB.
 
-1. **Event Doc Name Contains (opt)** (use with Outbound EIBs) - This is the direct replacement for the legacy `WebServiceRequester` integration. The parameter may be left blank when being used with an EIB; the integration will pick up the deliverable document from the EIB output.  If there are multiple deliverable documents, use this parameter to match the name of the desired deliverable document.
-2. **Custom Transformation** (optional) - If the report input has not been transformed in the EIB, the xslt attachment in this parameter can be used to convert the XML into a SOAP request.  This parameter is useful for boomerang chains. To create a boomerang chain, select 'None' for the transformation in the EIB.  Create multiple integration steps in the EIB business process and attach different XSLT documents in this parameter to generate different transformations.  Boomerang chains are useful when generating different requests using the same report input.  For example, it is possible to create new supervisory orgs in one integration step, and in the next integration step, assign the manager roles.  The trick is to use different xslt documents for each boomernag step, which can be done with this parameter.
-3. **Custom Report** and **Custom XSLT or Template** (no need for an EIB with this option) - This option allows you to run the Boomerang as a standalone integration. An EIB is not needed because Boomerang will extract your report data and perform the tranformation. Select a Workday report, then attach the XSLT document to be used to transform the report output. Boomerang does not support reports with prompts at this time.
-4. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will be performed in valide only mode.
+1. **Web Service** - This is the Workday Web Service that matches your SOAP request (operation).  See the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html).
+2. **Web Service API Version** - The Workday Web Service version that matches your request.
+3. **Custom XSLT or Template (opt)** - A Workday Drive document that can be used to transform report input if the transformation did not occur in an EIB (see **Custom Transformation** for more information).
+4. **Event Doc Name Contains (opt)** - The parameter may be left blank. If there are multiple deliverable documents from an EIB, use this parameter to match the name of the desired deliverable document.- 
+6. **Custom Report (opt)** - This parameter is not needed if the report input is coming from an EIB.  To use this parameter, select a Workday report. The **Custom XSLT or Template (opt)** parameter must be used in conjunction with this parameter. Boomerang does not support reports with prompts at this time.
+7. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will be performed in valide-only mode.
 
 <img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
+
+### Custom Transformation
+
+If the report input has not been transformed in an EIB, the xslt document in the **Custom XSLT or Template (opt)** parameter can be used to convert the XML into a SOAP request.  This parameter is useful for boomerang chains. To create a boomerang chain, select 'None' for the transformation in the EIB.  Create multiple integration steps in the EIB business process and attach different XSLT documents in this parameter to generate different transformations.  Boomerang chains are useful when generating different requests using the same report input.  For example, it is possible to create new supervisory orgs in one integration step, and in the next integration step, assign the manager roles.  The trick is to use different xslt documents for each boomerang step, which can be done with this parameter.
 
 ### Sample Custom Report
 
