@@ -1,4 +1,4 @@
-# Boomerang
+# Boomerang-v2
 
 A boomerang integration exports data out of Workday, transforms the data, and then feeds the data back to Workday to perform an update (like a boomerang <img src="https://user-images.githubusercontent.com/413552/129063819-869e47d6-b847-4f59-9f14-76ddb7539880.png" width="16" />
 ).
@@ -8,15 +8,15 @@ A Workday boomerang integration has three components:
 2. An XSLT file to transform the data into a web service request.
 3. A Workday Studio application that takes the web service request and calls Workday's API to perform a data update.
 
-This application, `Boomerang`, is a Workday Studio integration that can be run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
+This application, `Boomerang-v2`, is a Workday Studio integration that can be run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
 
 - Boomerang can be run as part of an EIB, or it can be launched as a standalone integration. 
 - Messages are logged using multiple output options, including Cloud Logs.
 
-Use launch option `c` (below) as the quickest way to get started with Boomerang. 
-1. Select the report that will serve as the boomerang input, **c - Custom Report**.  
-2. Attach the XSLT document using **c - Custom Transformation**.
-3. Select the `Web Service` that corresponds to the web service request in your XSLT.
+An EIB is often used as input to `Boomerang`, but there is also a quick launch option for running Boomerang as a standalone app. 
+1. Select the `Web Service` that corresponds to the web service request in your XSLT.
+2. Select the XSLT document from Workday Drive using **Custom XSLT or Template (opt)**.
+3. Select the report that will serve as the boomerang input, **Custom Report (opt)**.  
 
 **Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
 
@@ -29,15 +29,14 @@ Use launch option `c` (below) as the quickest way to get started with Boomerang.
 
 ## Launch Options
 
-There are three separate options for launching Boomerang. When selecting an option (a, b, or c), you must leave the parameters for the other options blank.
+There are three options for launching Boomerang. Depending on the option you select, you must leave the parameters for the other options blank.
 
-1. **a - Event Document Name Contains** (use with Outbound EIBs) - This is the direct replacement for the legacy `WebServiceRequester` integration. The parameter may be left blank when being used with an EIB; the integration will pick up the deliverable document from the EIB output.  If there are multiple deliverable documents, use this parameter to match the name of the desired deliverable document.
-2. **a - Custom Transformation** (optional) - If the report input has not been transformed in the EIB, the xslt attachment in this parameter can be used to convert the XML into a SOAP request.  This parameter is useful for boomerang chains. To create a boomerang chain, select 'None' for the transformation in the EIB.  Create multiple integration steps in the EIB business process and attach different XSLT documents in this parameter to generate different transformations.  Boomerang chains are useful when generating different requests using the same report input.  For example, it is possible to create new supervisory orgs in one integration step, and in the next integration step, assign the manager roles.  The trick is to use different xslt documents for each boomernag step, which can be done with this parameter.
-3. **b - Input Document** (use with a document that has already been transformed to a request) - A fully formed SOAP request document can be attached at runtime. For this option, the boomerang integration can be run in standalone mode and does not need to be connected to an EIB.
-4. **c - Custom Report** and **c - Custom Transformation** (no need for an EIB with this option) - This option allows you to run the Boomerang as a standalone integration. An EIB is not needed because Boomerang will extract your report data and perform the tranformation. Select a Workday report, then attach the XSLT document to be used to transform the report output. Boomerang does not support reports with prompts at this time.
-5. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will not be performed.
+1. **Event Doc Name Contains (opt)** (use with Outbound EIBs) - This is the direct replacement for the legacy `WebServiceRequester` integration. The parameter may be left blank when being used with an EIB; the integration will pick up the deliverable document from the EIB output.  If there are multiple deliverable documents, use this parameter to match the name of the desired deliverable document.
+2. **Custom Transformation** (optional) - If the report input has not been transformed in the EIB, the xslt attachment in this parameter can be used to convert the XML into a SOAP request.  This parameter is useful for boomerang chains. To create a boomerang chain, select 'None' for the transformation in the EIB.  Create multiple integration steps in the EIB business process and attach different XSLT documents in this parameter to generate different transformations.  Boomerang chains are useful when generating different requests using the same report input.  For example, it is possible to create new supervisory orgs in one integration step, and in the next integration step, assign the manager roles.  The trick is to use different xslt documents for each boomernag step, which can be done with this parameter.
+3. **Custom Report** and **Custom XSLT or Template** (no need for an EIB with this option) - This option allows you to run the Boomerang as a standalone integration. An EIB is not needed because Boomerang will extract your report data and perform the tranformation. Select a Workday report, then attach the XSLT document to be used to transform the report output. Boomerang does not support reports with prompts at this time.
+4. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will be performed in valide only mode.
 
-![image](https://user-images.githubusercontent.com/413552/168449152-c7e00923-98d7-4a85-9d6a-553afb4cb284.png)
+<img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
 
 ## EIB Instructions
 
