@@ -1,4 +1,4 @@
-# Boomerang
+# Boomerang-v2
 
 A boomerang integration exports data out of Workday, transforms the data, and then feeds the data back to Workday to perform an update (like a boomerang <img src="https://user-images.githubusercontent.com/413552/129063819-869e47d6-b847-4f59-9f14-76ddb7539880.png" width="16" />
 ).
@@ -8,108 +8,178 @@ A Workday boomerang integration has three components:
 2. An XSLT file to transform the data into a web service request.
 3. A Workday Studio application that takes the web service request and calls Workday's API to perform a data update.
 
-This application, `Boomerang`, is a Workday Studio integration that can be run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
+This application, `Boomerang-v2`, is a Workday Studio integration that can be run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
 
-- Boomerang can be run as part of an EIB, or it can be launched as a standalone integration. 
+- Boomerang can be run as part of an EIB, or it can be launched as a standalone integration.
+- With the *template* option, Boomerang is truly a no-code solution (no Studio code and no XSLT).  Boomerang will convert the request template to XSLT and then transform the report document.
 - Messages are logged using multiple output options, including Cloud Logs.
-
-Use launch option `c` (below) as the quickest way to get started with Boomerang. 
-1. Select the report that will serve as the boomerang input, **c - Custom Report**.  
-2. Attach the XSLT document using **c - Custom Transformation**.
-3. Select the `Web Service` that corresponds to the web service request in your XSLT.
-
-**Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
-
-**Tip:** If you always override your Workday report's namespace with `urn:com.workday/bsvc` (instead of the Workday-generated namespace), you'll be less likely to have a mismatch in your XSLT.
 
 ## Installation
 1. Download the latest clar file from https://github.com/swhitley/Boomerang/releases/latest.
 2. Import the clar file into Workday Studio.
 3. Deploy the integration to your Workday tenant.
 
-## Launch Options
+## Quick Start
 
-There are three separate options for launching Boomerang. When selecting an option (a, b, or c), you must leave the parameters for the other options blank.
+Although an EIB is often used as input, Boomerang can also be run as a standalone app. If a RaaS has already been created, and the XSLT document is stored in Workday Drive, follow the instructions below to quickly launch a boomerang integration. 
 
-1. **a - Event Document Name Contains** (use with Outbound EIBs) - This is the direct replacement for the legacy `WebServiceRequester` integration. The parameter may be left blank when being used with an EIB; the integration will pick up the deliverable document from the EIB output.  If there are multiple deliverable documents, use this parameter to match the name of the desired deliverable document.
-2. **a - Custom Transformation** (optional) - If the report input has not been transformed in the EIB, the xslt attachment in this parameter can be used to convert the XML into a SOAP request.  This parameter is useful for boomerang chains. To create a boomerang chain, select 'None' for the transformation in the EIB.  Create multiple integration steps in the EIB business process and attach different XSLT documents in this parameter to generate different transformations.  Boomerang chains are useful when generating different requests using the same report input.  For example, it is possible to create new supervisory orgs in one integration step, and in the next integration step, assign the manager roles.  The trick is to use different xslt documents for each boomernag step, which can be done with this parameter.
-3. **b - Input Document** (use with a document that has already been transformed to a request) - A fully formed SOAP request document can be attached at runtime. For this option, the boomerang integration can be run in standalone mode and does not need to be connected to an EIB.
-4. **c - Custom Report** and **c - Custom Transformation** (no need for an EIB with this option) - This option allows you to run the Boomerang as a standalone integration. An EIB is not needed because Boomerang will extract your report data and perform the tranformation. Select a Workday report, then attach the XSLT document to be used to transform the report output. Boomerang does not support reports with prompts at this time.
-5. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will not be performed.
+1. Launch the `Boomerang-v2`integration.
+2. Select the `Web Service` that corresponds to the web service request in your XSLT.
+3. Select the XSLT document from Workday Drive using **Custom XSLT or Template (opt)**.
+4. Select the report that will serve as the boomerang input in **Custom Report (opt)**.
 
-![image](https://user-images.githubusercontent.com/413552/168449152-c7e00923-98d7-4a85-9d6a-553afb4cb284.png)
+The report input will be transformed by the XSLT and the web service request will be executed in Workday.
 
-## EIB Instructions
+**Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
+
+**Tip:** If you always override your Workday report's namespace with `urn:com.workday/bsvc` (instead of the Workday-generated namespace), you'll be less likely to have a mismatch in your XSLT.
+
+## EIB Instructions (most common approach)
 
 1. Develop a Workday Custom Report. The report will be used to extract data for a web service request (see the sample report and sample xml output below).
 2. Create an Outbound EIB.
 3. Select the Workday report from step one as your data source.
-4. In the EIB, use the transformation step to convert the output into a web service request (see the sample xslt, 'department_assignment_automation.xslt', below).
+4. In the EIB, use the transformation step to convert the output into a web service request (see the sample xslt below).
 5. Add a business process to the EIB.
-6. Insert a new step at the end of the business process to call the `Boomerang` integration.
-7. For the `Boomerang` integration configuration, update the Web Service launch parameter to make sure that it matches the request in your XSLT file. 
+6. Insert a new step at the end of the business process to call the `Boomerang-v2` integration.
+7. For the Boomerang integration parameters, update the Web Service launch parameter so it matches the request in your XSLT file. 
 8. You are not required to configure any additional Boomerang launch parameters for this option.
 
 ### (Step 5 Above) Add a business process to the EIB and insert a new step
 ![image](https://user-images.githubusercontent.com/413552/125008154-c2fa0680-e016-11eb-8551-dda6e78c8298.png)
 
-### (Step 6 Above) Select "Integration" and choose the Boomerang integration
-![image](https://user-images.githubusercontent.com/413552/125008820-2c2e4980-e018-11eb-9dc9-5571b1126a2b.png)
+### (Step 6 Above) Select "Integration" and choose the Boomerang-v2 integration
+<img width="320" alt="image" src="https://user-images.githubusercontent.com/413552/213903737-86b79a14-c6c4-4675-890f-13ea6edc5a40.png">
 
 ### (Step 7 Above) Configure the Boomerang integration
 
-![image](https://user-images.githubusercontent.com/413552/129071201-40fa7c4d-2f01-4262-9ee5-0ff1819b6b59.png)
+<img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
 
+
+## Launch Parameters
+
+For the EIB solution, you may only need to set the `Web Service` and `Web Service API Version` parameters. Leave all other parameters blank if the report was already transformed in an EIB.
+
+1. **Web Service** - This is the Workday Web Service that matches your SOAP request (operation).  See the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html).
+2. **Web Service API Version** - The Workday Web Service version that matches your request.
+3. **Custom XSLT or Template (opt)** - The parameter may be left blank. The parameter points to a Workday Drive document that can be used to transform report input if the transformation did not occur in an EIB (see **Custom Transformation** and **Workday Drive** for more information).
+4. **Event Doc Name Contains (opt)** - The parameter may be left blank. If there are multiple deliverable documents from an EIB, use this parameter to match the name of the desired deliverable document.
+5. **Custom Report (opt)** - This parameter is not needed if the report input is coming from an EIB.  To use this parameter, select a Workday report. The **Custom XSLT or Template (opt)** parameter must be used in conjunction with this parameter. Boomerang does not support reports with prompts at this time.
+6. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will be performed in validate-only mode.
+
+<img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
+
+### Custom Transformation
+
+If the report input has not been transformed in an EIB, the xslt document in the **Custom XSLT or Template (opt)** parameter can be used to convert the XML into a SOAP request.  This parameter is useful for boomerang chains. To create a boomerang chain, select 'None' for the transformation in the EIB.  Create multiple integration steps in the EIB business process and attach different XSLT documents in this parameter to generate different transformations.  Boomerang chains are useful when generating different requests using the same report input.  For example, it is possible to create new supervisory orgs in one integration step, and in the next integration step, assign the manager roles.  The trick is to use different xslt documents for each boomerang step, which can be done with this parameter.
+
+### Workday Drive
+
+Boomerang accesses Workday Drive when the **Custom XSLT or Template (opt)** parameter is used. Some configuration of Workday Drive and knowledge of files in Drive are helpful when using this parameter.
+
+For this parameter, ensure the following domain is enabled for the Workday user that is executing Boomerang-v2
+
+Security:  `Domain: Drive Web Services`
+
+Workday Drive will only allow certain file types (based on file extension) to be uploaded (see the Workday Drive documentation).  It is possible to upload an XSLT file or template file to Drive by changing the extension of the file.  For example, if the XSLT file is called "Change_Business_Title.xslt," Workday Drive may block the upload of this file extension.  In this case, change the extension to a file type that is accepted by Drive (such as .svg or .png).  Using the example, the file can be uploaded as, "Change_Business_Title.xslt.png."  Even though the file extension doesn't match the file contents, Boomerang will still recognize the file and use it in a transformation.
+
+When using the **Custom XSLT or Template (opt)** parameter, it is best to navigate in the selection field using the **By Type** option and then by **File**. Workday Drive carries a reference to the file and a view of the file as separate objects.  It is important to select the file object, and not the view object.
+
+### Request Template
+
+Boomerang is a no-code solution. With the Template parameter, XSLT coding is not required.
+
+A template is an XML document that contains references to the fields in the input report.
+
+Follow these steps to setup a valid template:
+
+1. Ensure that the RaaS that will be used for the boomerang is using the standard namespace `urn:com.workday/bsvc`.  This value is set when clicking the **Enable as Web Service** flag. Override the default value and set the namespace to `urn:com.workday/bsvc`. 
+2. Construct a valid API request document using the information available on the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html). Remember that you are not constructing an XML stylesheet.  This is a basic XML document.
+3. Wherever dynamic data is needed in your request document, add the field name from your report input, surrounded by double-braces.  For example, if your input report contains a field called "costCenter", add the following text to your template where the cost center should appear:  `{{costCenter}}`
+4. When Boomerang runs, it will convert your template into an XSL transformation.  The double-braces will be replaced by xsl:value-of code.  The field name will be prefixed with `wd:`.
+5. To prevent a `wd:` prefix from being applied automatically, use a tilde (~) immediately following the double-braces.  See the example template where an XSLT function is used to get the current date.
+
+
+See the sample below for a request template that can be used to update a business title.
+
+
+
+## Sample Files
 
 ### Sample Custom Report
 
-<img src="https://user-images.githubusercontent.com/413552/129069245-71a4e3e3-d7ab-4587-9b0b-dda126b956de.png" width="600" />
+<img width="503" alt="image" src="https://user-images.githubusercontent.com/413552/213957384-1b6c66eb-90de-4fca-83db-83eff118baf5.png">
 
 ### Sample XML Report Output
 
 ```xml
 <?xml version='1.0' encoding='UTF-8'?>
-<wd:Report_Data xmlns:wd="urn:com.workday.report/Department_Assignment_Automation">
+<wd:Report_Data xmlns:wd="urn:com.workday/bsvc">
 	<wd:Report_Entry>
-		<wd:Position_ID>Job-7-12345</wd:Position_ID>
-		<wd:Reference_ID>DEPT-143728</wd:Reference_ID>
+		<wd:Employee_ID>006447</wd:Employee_ID>
+		<wd:Title>Master Boomerang Thrower</wd:Title>
 	</wd:Report_Entry>
 </wd:Report_Data>
 ```
 
 ### Sample XSLT Transformation
-#### department_assignment_automation.xslt
+
+**NOTE:**  The Change Business Title Request web operation is part of the Human Resources service.  If you use this example, you will select Human Resources in Boomerang's Web Service parameter.
+
+#### change_business_title.xslt
 ```xml
 <?xml version='1.0' encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:wd="urn:com.workday.report/Department_Assignment_Automation">
-  <xsl:template match="/">
-    <env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <env:Body>
-        <xsl:for-each select="wd:Report_Data/wd:Report_Entry">
-          <Change_Organization_Assignments_Request xmlns="urn:com.workday/bsvc" xmlns:a="urn:com.workday/bsvc" a:version="v27.2">
-            <a:Change_Organization_Assignments_Data a:Effective_Date="{format-date(current-date(), '[Y0001]-[M01]-[D01]')}">
-              <a:Position_Reference>
-                <a:ID a:type="Position_ID">
-                  <xsl:value-of select="wd:Position_ID" />
-                </a:ID>
-              </a:Position_Reference>
-              <a:Position_Organization_Assignments_Data>
-                <a:Custom_Organization_Assignment_Data>
-                  <a:Custom_Organization_Assignment_Reference>
-                    <a:ID a:type="Custom_Organization_Reference_ID">
-                      <xsl:value-of select="wd:Reference_ID" />
-                    </a:ID>
-                  </a:Custom_Organization_Assignment_Reference>
-                </a:Custom_Organization_Assignment_Data>
-              </a:Position_Organization_Assignments_Data>
-            </a:Change_Organization_Assignments_Data>
-          </Change_Organization_Assignments_Request>
-        </xsl:for-each>
-      </env:Body>
-    </env:Envelope>
-  </xsl:template>
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:wd="urn:com.workday/bsvc">
+	<xsl:template match="/">
+		<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<env:Body>
+				<xsl:for-each select="wd:Report_Data/wd:Report_Entry">
+					<bsvc:Change_Business_Title_Request bsvc:version="v39.1" xmlns:bsvc="urn:com.workday/bsvc">
+						<bsvc:Business_Process_Parameters>
+							<bsvc:Auto_Complete>true</bsvc:Auto_Complete>
+							<bsvc:Run_Now>true</bsvc:Run_Now>
+							<bsvc:Discard_On_Exit_Validation_Error>true</bsvc:Discard_On_Exit_Validation_Error>
+						</bsvc:Business_Process_Parameters>
+						<bsvc:Change_Business_Title_Business_Process_Data>
+							<bsvc:Worker_Reference>
+								<bsvc:ID bsvc:type="Employee_ID"><xsl:value-of select="wd:Employee_ID"/></bsvc:ID>
+							</bsvc:Worker_Reference>
+							<bsvc:Change_Business_Title_Data>
+								<bsvc:Event_Effective_Date>
+									<xsl:value-of select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
+								</bsvc:Event_Effective_Date>
+								<bsvc:Proposed_Business_Title><xsl:value-of select="wd:Title"/></bsvc:Proposed_Business_Title>
+							</bsvc:Change_Business_Title_Data>
+						</bsvc:Change_Business_Title_Business_Process_Data>
+					</bsvc:Change_Business_Title_Request>
+				</xsl:for-each>
+			</env:Body>
+		</env:Envelope>
+	</xsl:template>
 </xsl:stylesheet>
 ```
 
+### Sample Request Template
+#### change_business_title.template.xml
+```xml
+<?xml version='1.0' encoding="UTF-8"?>
+<bsvc:Change_Business_Title_Request xmlns:bsvc="urn:com.workday/bsvc" bsvc:version="v39.1">
+	<bsvc:Business_Process_Parameters>
+		<bsvc:Auto_Complete>true</bsvc:Auto_Complete>
+		<bsvc:Run_Now>true</bsvc:Run_Now>
+		<bsvc:Discard_On_Exit_Validation_Error>true</bsvc:Discard_On_Exit_Validation_Error>
+	</bsvc:Business_Process_Parameters>
+	<bsvc:Change_Business_Title_Business_Process_Data>
+		<bsvc:Worker_Reference>
+			<bsvc:ID bsvc:type="Employee_ID">{{Employee_ID}}</bsvc:ID>
+		</bsvc:Worker_Reference>
+		<bsvc:Change_Business_Title_Data>
+			<bsvc:Event_Effective_Date>{{~format-date(current-date(), '[Y0001]-[M01]-[D01]')}}</bsvc:Event_Effective_Date>
+			<bsvc:Proposed_Business_Title>{{Title}}</bsvc:Proposed_Business_Title>
+		</bsvc:Change_Business_Title_Data>
+	</bsvc:Change_Business_Title_Business_Process_Data>
+</bsvc:Change_Business_Title_Request>
+```xml
 
-Boomerang is not sponsored, affiliated with, or endorsed by Workday®.
+
+**Boomerang is not sponsored, affiliated with, or endorsed by Workday®.**
