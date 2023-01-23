@@ -62,7 +62,7 @@ For the EIB solution, you may only need to set the `Web Service` and `Web Servic
 
 1. **Web Service** - This is the Workday Web Service that matches your SOAP request (operation).  See the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html).
 2. **Web Service API Version** - The Workday Web Service version that matches your request.
-3. **Custom XSLT or Template (opt)** - The parameter may be left blank. The parameter points to a Workday Drive document that can be used to transform report input if the transformation did not occur in an EIB (see **Custom Transformation** for more information).
+3. **Custom XSLT or Template (opt)** - The parameter may be left blank. The parameter points to a Workday Drive document that can be used to transform report input if the transformation did not occur in an EIB (see **Custom Transformation** and **Workday Drive** for more information).
 4. **Event Doc Name Contains (opt)** - The parameter may be left blank. If there are multiple deliverable documents from an EIB, use this parameter to match the name of the desired deliverable document.- 
 6. **Custom Report (opt)** - This parameter is not needed if the report input is coming from an EIB.  To use this parameter, select a Workday report. The **Custom XSLT or Template (opt)** parameter must be used in conjunction with this parameter. Boomerang does not support reports with prompts at this time.
 7. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will be performed in valide-only mode.
@@ -81,11 +81,11 @@ For this parameter, ensure the following domain is enabled for the Workday user 
 
 Security:  `Domain: Drive Web Services`
 
-Workday Drive will only allow certain files (based on file extension) to be uploaded.  It is possible to upload an XSLT file or template file to Drive by changing the extension of the file.  For example, if the XSLT file is called "Change_Business_Title.xslt," Workday Drive may block the upload of this file extension.  In this case, change the extension to a file type that is accepted by Drive (such as .svg or .png).  The file can be uploaded as, "Change_Business_Title.xslt.png."  Even though the file extension isn't .xslt or .xml, Boomerang will still recognize the file and use it in a transformation.
+Workday Drive will only allow certain files (based on file extension) to be uploaded (see the Workday Drive documentation).  It is possible to upload an XSLT file or template file to Drive by changing the extension of the file.  For example, if the XSLT file is called "Change_Business_Title.xslt," Workday Drive may block the upload of this file extension.  In this case, change the extension to a file type that is accepted by Drive (such as .svg or .png).  Using the example, the file can be uploaded as, "Change_Business_Title.xslt.png."  Even though the file extension isn't .xslt or .xml, Boomerang will still recognize the file and use it in a transformation.
 
 When using the **Custom XSLT or Template (opt)** parameter, it is best to navigate using the **By Type** option and then by **File Type**.  Always look for a file with an icon.  Workday Drive carries a reference to the file and a view of the file as a separate object.  It is important to select the file object (with an icon), and not the viewable object (without an icon).
 
-**View Media** - Using the **View Media** report, it is possible to upload files that can be accessed within Drive but are not allowed to be uploaded directly in Drive.  This method allows XSLT files to be uploaded using an .xslt extension. Run the View Media report and then select **Create** -> **Media Document Upload Create**.
+**View Media** - Using the **View Media** report, it is possible to upload files that can be accessed within Drive but are not allowed to be uploaded directly in Drive.  This method allows XSLT files to be uploaded using an .xslt extension. Run the View Media report and then select **Create** -> **Media Document Upload Create**. The uploader in this approach is not as restrictive as the file upload process in Workday Drive.
 
 
 ### Sample Custom Report
