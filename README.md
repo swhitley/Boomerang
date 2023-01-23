@@ -102,6 +102,10 @@ Follow these steps to setup a valid template:
 
 See the sample below for a request template that can be used to update a business title.
 
+
+
+## Sample Files
+
 ### Sample Custom Report
 
 <img width="503" alt="image" src="https://user-images.githubusercontent.com/413552/213957384-1b6c66eb-90de-4fca-83db-83eff118baf5.png">
