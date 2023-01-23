@@ -21,7 +21,7 @@ This application, `Boomerang-v2`, is a Workday Studio integration that can be ru
 
 ## Quick Start
 
-Although it is possible to run Boomerang as a standalone app, an EIB is often used as input to `Boomerang`. 
+Although an EIB is often used as input, Boomerang can also be run as a standalone app. If a RaaS has already been created, and the XSLT document is stored in Workday Drive, follow the instructions below to quickly launch a boomerang integration. 
 
 1. Launch the `Boomerang-v2`integration.
 2. Select the `Web Service` that corresponds to the web service request in your XSLT.
@@ -39,7 +39,7 @@ The report input will be transformed by the XSLT and the web service request wil
 1. Develop a Workday Custom Report. The report will be used to extract data for a web service request (see the sample report and sample xml output below).
 2. Create an Outbound EIB.
 3. Select the Workday report from step one as your data source.
-4. In the EIB, use the transformation step to convert the output into a web service request (see the sample xslt, 'department_assignment_automation.xslt', below).
+4. In the EIB, use the transformation step to convert the output into a web service request (see the sample xslt below).
 5. Add a business process to the EIB.
 6. Insert a new step at the end of the business process to call the `Boomerang-v2` integration.
 7. For the Boomerang integration parameters, update the Web Service launch parameter so it matches the request in your XSLT file. 
@@ -63,9 +63,9 @@ For the EIB solution, you may only need to set the `Web Service` and `Web Servic
 1. **Web Service** - This is the Workday Web Service that matches your SOAP request (operation).  See the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html).
 2. **Web Service API Version** - The Workday Web Service version that matches your request.
 3. **Custom XSLT or Template (opt)** - The parameter may be left blank. The parameter points to a Workday Drive document that can be used to transform report input if the transformation did not occur in an EIB (see **Custom Transformation** and **Workday Drive** for more information).
-4. **Event Doc Name Contains (opt)** - The parameter may be left blank. If there are multiple deliverable documents from an EIB, use this parameter to match the name of the desired deliverable document.- 
-6. **Custom Report (opt)** - This parameter is not needed if the report input is coming from an EIB.  To use this parameter, select a Workday report. The **Custom XSLT or Template (opt)** parameter must be used in conjunction with this parameter. Boomerang does not support reports with prompts at this time.
-7. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will be performed in valide-only mode.
+4. **Event Doc Name Contains (opt)** - The parameter may be left blank. If there are multiple deliverable documents from an EIB, use this parameter to match the name of the desired deliverable document.
+5. **Custom Report (opt)** - This parameter is not needed if the report input is coming from an EIB.  To use this parameter, select a Workday report. The **Custom XSLT or Template (opt)** parameter must be used in conjunction with this parameter. Boomerang does not support reports with prompts at this time.
+6. **Validate Only** - When this box is checked, the integration will run, but the SOAP API call to Workday will be performed in validate-only mode.
 
 <img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
 
@@ -81,7 +81,7 @@ For this parameter, ensure the following domain is enabled for the Workday user 
 
 Security:  `Domain: Drive Web Services`
 
-Workday Drive will only allow certain files (based on file extension) to be uploaded (see the Workday Drive documentation).  It is possible to upload an XSLT file or template file to Drive by changing the extension of the file.  For example, if the XSLT file is called "Change_Business_Title.xslt," Workday Drive may block the upload of this file extension.  In this case, change the extension to a file type that is accepted by Drive (such as .svg or .png).  Using the example, the file can be uploaded as, "Change_Business_Title.xslt.png."  Even though the file extension isn't .xslt or .xml, Boomerang will still recognize the file and use it in a transformation.
+Workday Drive will only allow certain file types (based on file extension) to be uploaded (see the Workday Drive documentation).  It is possible to upload an XSLT file or template file to Drive by changing the extension of the file.  For example, if the XSLT file is called "Change_Business_Title.xslt," Workday Drive may block the upload of this file extension.  In this case, change the extension to a file type that is accepted by Drive (such as .svg or .png).  Using the example, the file can be uploaded as, "Change_Business_Title.xslt.png."  Even though the file extension doesn't match the file contents, Boomerang will still recognize the file and use it in a transformation.
 
 When using the **Custom XSLT or Template (opt)** parameter, it is best to navigate in the selection field using the **By Type** option and then by **File**. Workday Drive carries a reference to the file and a view of the file as separate objects.  It is important to select the file object, and not the view object.
 
@@ -93,9 +93,9 @@ A template is an XML document that contains references to the fields in the inpu
 
 Follow these steps to setup a valid template:
 
-1. Ensure the report is using the standard namespace `urn:com.workday/bsvc`.  This value is set when clicking the **Enable as Web Service** flag. Override the default value.
-2. Construct a valid API request document using the information available on the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html).
-3. Wherever dynamic data is needed in your request document, add the field name from your report input, surrounded by double-braces.  For example, if your input report contains a field called"costCenter", add the following text to your template where the cost center should appear:  `{{costCenter}}`
+1. Ensure that the RaaS that will be used for the boomerang is using the standard namespace `urn:com.workday/bsvc`.  This value is set when clicking the **Enable as Web Service** flag. Override the default value and set the namespace to `urn:com.workday/bsvc`. 
+2. Construct a valid API request document using the information available on the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html). Remember that you are not constructing an XML stylesheet.  This is a basic XML document.
+3. Wherever dynamic data is needed in your request document, add the field name from your report input, surrounded by double-braces.  For example, if your input report contains a field called "costCenter", add the following text to your template where the cost center should appear:  `{{costCenter}}`
 4. When Boomerang runs, it will convert your template into an XSL transformation.  The double-braces will be replaced by xsl:value-of code.  The field name will be prefixed with `wd:`.
 5. To prevent a `wd:` prefix from being applied automatically, use a tilde (~) immediately following the double-braces.  See the example template where an XSLT function is used to get the current date.
 
@@ -130,7 +130,7 @@ See the sample below for a request template that can be used to update a busines
 		<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<env:Body>
 				<xsl:for-each select="wd:Report_Data/wd:Report_Entry">
-					<bsvc:Change_Business_Title_Request bsvc:version="v39.0" xmlns:bsvc="urn:com.workday/bsvc">
+					<bsvc:Change_Business_Title_Request bsvc:version="v39.1" xmlns:bsvc="urn:com.workday/bsvc">
 						<bsvc:Business_Process_Parameters>
 							<bsvc:Auto_Complete>true</bsvc:Auto_Complete>
 							<bsvc:Run_Now>true</bsvc:Run_Now>
