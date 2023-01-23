@@ -119,6 +119,9 @@ See the sample below for a request template that can be used to update a busines
 ```
 
 ### Sample XSLT Transformation
+
+**NOTE:**  The Change Business Title Request web operation is part of the Human Resources service.  If you use this example, you will select Human Resources in Boomerang's Web Service parameter.
+
 #### change_business_title.xslt
 ```xml
 <?xml version='1.0' encoding="UTF-8"?>
