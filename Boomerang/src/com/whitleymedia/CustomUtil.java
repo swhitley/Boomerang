@@ -12,6 +12,7 @@ public class CustomUtil {
 		str = str.replace("{{", "<xsl:value-of select=\"wd:");
 		str = str.replace("}}", "\"/>");
 		str = str.replace("wd:wd:", "wd:");
+		str = str.replace("wd:~", "");
 		return str;
 	}
 
