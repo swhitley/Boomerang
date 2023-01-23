@@ -181,5 +181,5 @@ See the sample below for a request template that can be used to update a busines
 </bsvc:Change_Business_Title_Request>
 ```
 
-
+## Disclaimers
 **Boomerang is not sponsored, affiliated with, or endorsed by Workday®.**
