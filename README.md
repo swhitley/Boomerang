@@ -21,7 +21,7 @@ This application, `Boomerang-v2`, is a Workday Studio integration that can be ru
 
 ## Quick Start
 
-An EIB is often used as input to `Boomerang`, but it is also possible to run Boomerang as a standalone app. 
+Although it is possible to run Boomerang as a standalone app, an EIB is often used as input to `Boomerang`. 
 
 1. Launch the `Boomerang-v2`integration.
 2. Select the `Web Service` that corresponds to the web service request in your XSLT.
