@@ -122,7 +122,7 @@ See the sample below for a request template that can be used to update a busines
 </wd:Report_Data>
 ```
 
-### Sample XSLT Transformation
+### Sample XSLT File
 
 **NOTE:**  The Change Business Title Request web operation is part of the Human Resources service.  If you use this example, you will select Human Resources in Boomerang's Web Service parameter.
 
