@@ -85,6 +85,23 @@ Workday Drive will only allow certain files (based on file extension) to be uplo
 
 When using the **Custom XSLT or Template (opt)** parameter, it is best to navigate in the selection field using the **By Type** option and then by **File**. Workday Drive carries a reference to the file and a view of the file as separate objects.  It is important to select the file object, and not the view object.
 
+### Request Template
+
+Boomerang is a no-code solution. With the Template parameter, XSLT coding is not required.
+
+A template is an XML document that contains references to the fields in the input report.
+
+Follow these steps to setup a valid template:
+
+1. Ensure the report is using the standard namespace `urn:com.workday/bsvc`.  This value is set when clicking the **Enable as Web Service** flag. Override the default value.
+2. Construct a valid API request document using the information available on the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html).
+3. Wherever dynamic data is needed in your request document, add the field name from your report input, surrounded by double-braces.  For example, if your input report contains a field called"costCenter", add the following text to your template where the cost center should appear:  `{{costCenter}}`
+4. When Boomerang runs, it will convert your template into an XSL transformation.  The double-braces will be replaced by xsl:value-of code.  The field name will be prefixed with `wd:`.
+5. To prevent a `wd:` prefix from being applied automatically, use a tilde (~) immediately following the double-braces.  See the example template where an XSLT function is used to get the current date.
+
+
+See the sample below for a request template that can be used to update a business title.
+
 ### Sample Custom Report
 
 <img width="503" alt="image" src="https://user-images.githubusercontent.com/413552/213957384-1b6c66eb-90de-4fca-83db-83eff118baf5.png">
@@ -102,7 +119,7 @@ When using the **Custom XSLT or Template (opt)** parameter, it is best to naviga
 ```
 
 ### Sample XSLT Transformation
-#### department_assignment_automation.xslt
+#### change_business_title.xslt
 ```xml
 <?xml version='1.0' encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:wd="urn:com.workday/bsvc">
@@ -135,7 +152,25 @@ When using the **Custom XSLT or Template (opt)** parameter, it is best to naviga
 </xsl:stylesheet>
 ```
 
-
-
-
+### Sample Request Template
+#### change_business_title.template.xml
+```xml
+<?xml version='1.0' encoding="UTF-8"?>
+<bsvc:Change_Business_Title_Request xmlns:bsvc="urn:com.workday/bsvc" bsvc:version="v39.1">
+	<bsvc:Business_Process_Parameters>
+		<bsvc:Auto_Complete>true</bsvc:Auto_Complete>
+		<bsvc:Run_Now>true</bsvc:Run_Now>
+		<bsvc:Discard_On_Exit_Validation_Error>true</bsvc:Discard_On_Exit_Validation_Error>
+	</bsvc:Business_Process_Parameters>
+	<bsvc:Change_Business_Title_Business_Process_Data>
+		<bsvc:Worker_Reference>
+			<bsvc:ID bsvc:type="Employee_ID">{{Employee_ID}}</bsvc:ID>
+		</bsvc:Worker_Reference>
+		<bsvc:Change_Business_Title_Data>
+			<bsvc:Event_Effective_Date>{{~format-date(current-date(), '[Y0001]-[M01]-[D01]')}}</bsvc:Event_Effective_Date>
+			<bsvc:Proposed_Business_Title>{{Title}}</bsvc:Proposed_Business_Title>
+		</bsvc:Change_Business_Title_Data>
+	</bsvc:Change_Business_Title_Business_Process_Data>
+</bsvc:Change_Business_Title_Request>
+```xml
 #### Boomerang is not sponsored, affiliated with, or endorsed by Workday®.
