@@ -83,23 +83,20 @@ Security:  `Domain: Drive Web Services`
 
 Workday Drive will only allow certain files (based on file extension) to be uploaded (see the Workday Drive documentation).  It is possible to upload an XSLT file or template file to Drive by changing the extension of the file.  For example, if the XSLT file is called "Change_Business_Title.xslt," Workday Drive may block the upload of this file extension.  In this case, change the extension to a file type that is accepted by Drive (such as .svg or .png).  Using the example, the file can be uploaded as, "Change_Business_Title.xslt.png."  Even though the file extension isn't .xslt or .xml, Boomerang will still recognize the file and use it in a transformation.
 
-When using the **Custom XSLT or Template (opt)** parameter, it is best to navigate using the **By Type** option and then by **File Type**.  Always look for a file with an icon.  Workday Drive carries a reference to the file and a view of the file as a separate object.  It is important to select the file object (with an icon), and not the viewable object (without an icon).
-
-**View Media** - Using the **View Media** report, it is possible to upload files that can be accessed within Drive but are not allowed to be uploaded directly in Drive.  This method allows XSLT files to be uploaded using an .xslt extension. Run the View Media report and then select **Create** -> **Media Document Upload Create**. The uploader in this approach is not as restrictive as the file upload process in Workday Drive.
-
+When using the **Custom XSLT or Template (opt)** parameter, it is best to navigate in the selection field using the **By Type** option and then by **File**. Workday Drive carries a reference to the file and a view of the file as separate objects.  It is important to select the file object, and not the view object.
 
 ### Sample Custom Report
 
-<img src="https://user-images.githubusercontent.com/413552/129069245-71a4e3e3-d7ab-4587-9b0b-dda126b956de.png" width="600" />
+<img width="503" alt="image" src="https://user-images.githubusercontent.com/413552/213957384-1b6c66eb-90de-4fca-83db-83eff118baf5.png">
 
 ### Sample XML Report Output
 
 ```xml
 <?xml version='1.0' encoding='UTF-8'?>
-<wd:Report_Data xmlns:wd="urn:com.workday.report/Department_Assignment_Automation">
+<wd:Report_Data xmlns:wd="urn:com.workday/bsvc">
 	<wd:Report_Entry>
-		<wd:Position_ID>Job-7-12345</wd:Position_ID>
-		<wd:Reference_ID>DEPT-143728</wd:Reference_ID>
+		<wd:Employee_ID>006447</wd:Employee_ID>
+		<wd:Title>Master Boomerang Thrower</wd:Title>
 	</wd:Report_Entry>
 </wd:Report_Data>
 ```
@@ -108,35 +105,37 @@ When using the **Custom XSLT or Template (opt)** parameter, it is best to naviga
 #### department_assignment_automation.xslt
 ```xml
 <?xml version='1.0' encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:wd="urn:com.workday.report/Department_Assignment_Automation">
-  <xsl:template match="/">
-    <env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <env:Body>
-        <xsl:for-each select="wd:Report_Data/wd:Report_Entry">
-          <Change_Organization_Assignments_Request xmlns="urn:com.workday/bsvc" xmlns:a="urn:com.workday/bsvc" a:version="v27.2">
-            <a:Change_Organization_Assignments_Data a:Effective_Date="{format-date(current-date(), '[Y0001]-[M01]-[D01]')}">
-              <a:Position_Reference>
-                <a:ID a:type="Position_ID">
-                  <xsl:value-of select="wd:Position_ID" />
-                </a:ID>
-              </a:Position_Reference>
-              <a:Position_Organization_Assignments_Data>
-                <a:Custom_Organization_Assignment_Data>
-                  <a:Custom_Organization_Assignment_Reference>
-                    <a:ID a:type="Custom_Organization_Reference_ID">
-                      <xsl:value-of select="wd:Reference_ID" />
-                    </a:ID>
-                  </a:Custom_Organization_Assignment_Reference>
-                </a:Custom_Organization_Assignment_Data>
-              </a:Position_Organization_Assignments_Data>
-            </a:Change_Organization_Assignments_Data>
-          </Change_Organization_Assignments_Request>
-        </xsl:for-each>
-      </env:Body>
-    </env:Envelope>
-  </xsl:template>
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:wd="urn:com.workday/bsvc">
+	<xsl:template match="/">
+		<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<env:Body>
+				<xsl:for-each select="wd:Report_Data/wd:Report_Entry">
+					<bsvc:Change_Business_Title_Request bsvc:version="v39.0" xmlns:bsvc="urn:com.workday/bsvc">
+						<bsvc:Business_Process_Parameters>
+							<bsvc:Auto_Complete>true</bsvc:Auto_Complete>
+							<bsvc:Run_Now>true</bsvc:Run_Now>
+							<bsvc:Discard_On_Exit_Validation_Error>true</bsvc:Discard_On_Exit_Validation_Error>
+						</bsvc:Business_Process_Parameters>
+						<bsvc:Change_Business_Title_Business_Process_Data>
+							<bsvc:Worker_Reference>
+								<bsvc:ID bsvc:type="Employee_ID"><xsl:value-of select="wd:Employee_ID"/></bsvc:ID>
+							</bsvc:Worker_Reference>
+							<bsvc:Change_Business_Title_Data>
+								<bsvc:Event_Effective_Date>
+									<xsl:value-of select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"/>
+								</bsvc:Event_Effective_Date>
+								<bsvc:Proposed_Business_Title><xsl:value-of select="wd:Title"/></bsvc:Proposed_Business_Title>
+							</bsvc:Change_Business_Title_Data>
+						</bsvc:Change_Business_Title_Business_Process_Data>
+					</bsvc:Change_Business_Title_Request>
+				</xsl:for-each>
+			</env:Body>
+		</env:Envelope>
+	</xsl:template>
 </xsl:stylesheet>
 ```
 
 
-Boomerang is not sponsored, affiliated with, or endorsed by Workday®.
+
+
+#### Boomerang is not sponsored, affiliated with, or endorsed by Workday®.
