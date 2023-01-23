@@ -73,6 +73,21 @@ For the EIB solution, you may only need to set the `Web Service` and `Web Servic
 
 If the report input has not been transformed in an EIB, the xslt document in the **Custom XSLT or Template (opt)** parameter can be used to convert the XML into a SOAP request.  This parameter is useful for boomerang chains. To create a boomerang chain, select 'None' for the transformation in the EIB.  Create multiple integration steps in the EIB business process and attach different XSLT documents in this parameter to generate different transformations.  Boomerang chains are useful when generating different requests using the same report input.  For example, it is possible to create new supervisory orgs in one integration step, and in the next integration step, assign the manager roles.  The trick is to use different xslt documents for each boomerang step, which can be done with this parameter.
 
+### Workday Drive
+
+Boomerang accesses Workday Drive when the **Custom XSLT or Template (opt)** parameter is used. Some configuration of Workday Drive and knowledge of files in Drive are helpful when using this parameter.
+
+For this parameter, ensure the following domain is enabled for the Workday user that is executing Boomerang-v2
+
+Security:  `Domain: Drive Web Services`
+
+Workday Drive will only allow certain files (based on file extension) to be uploaded.  It is possible to upload an XSLT file or template file to Drive by changing the extension of the file.  For example, if the XSLT file is called "Change_Business_Title.xslt," Workday Drive may block the upload of this file extension.  In this case, change the extension to a file type that is accepted by Drive (such as .svg or .png).  The file can be uploaded as, "Change_Business_Title.xslt.png."  Even though the file extension isn't .xslt or .xml, Boomerang will still recognize the file and use it in a transformation.
+
+When using the **Custom XSLT or Template (opt)** parameter, it is best to navigate using the **By Type** option and then by **File Type**.  Always look for a file with an icon.  Workday Drive carries a reference to the file and a view of the file as a separate object.  It is important to select the file object (with an icon), and not the viewable object (without an icon).
+
+**View Media** - Using the **View Media** report, it is possible to upload files that can be accessed within Drive but are not allowed to be uploaded directly in Drive.  This method allows XSLT files to be uploaded using an .xslt extension. Run the View Media report and then select **Create** -> **Media Document Upload Create**.
+
+
 ### Sample Custom Report
 
 <img src="https://user-images.githubusercontent.com/413552/129069245-71a4e3e3-d7ab-4587-9b0b-dda126b956de.png" width="600" />
