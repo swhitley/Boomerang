@@ -179,7 +179,7 @@ See the sample below for a request template that can be used to update a busines
 		</bsvc:Change_Business_Title_Data>
 	</bsvc:Change_Business_Title_Business_Process_Data>
 </bsvc:Change_Business_Title_Request>
-```xml
+```
 
 
 **Boomerang is not sponsored, affiliated with, or endorsed by Workday®.**
