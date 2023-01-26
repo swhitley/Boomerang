@@ -11,7 +11,7 @@ A Workday boomerang integration has three components:
 This application, `Boomerang-v2`, is a Workday Studio integration that can be run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
 
 - Boomerang can be run as part of an EIB, or it can be launched as a standalone integration.
-- With the *template* option, Boomerang can be run without any coding (no Studio code and no XSLT).  Boomerang will convert the request template to XSLT and then transform the report document.
+- With the *template* option, Boomerang doesn't require any coding (no Studio code and no XSLT).  Boomerang will convert the request template to XSLT and then transform the report document.
 - Messages are logged using multiple output options, including Cloud Logs.
 
 ## Installation
