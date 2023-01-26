@@ -11,7 +11,7 @@ A Workday boomerang integration has three components:
 This application, `Boomerang-v2`, is a Workday Studio integration that can be run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
 
 - Boomerang can be run as part of an EIB, or it can be launched as a standalone integration.
-- With the *template* option, Boomerang doesn't require any coding (no Studio code and no XSLT).  Boomerang will convert the request template to XSLT and then transform the report document.
+- With the *template* option, no coding is required (no Studio code and no XSLT).  Boomerang will convert the request template to XSLT and then transform the report document.
 - Messages are logged using multiple output options, including Cloud Logs.
 
 ## Installation
@@ -87,13 +87,13 @@ When using the **Custom XSLT or Template (opt)** parameter, it is best to naviga
 
 ### Request Template
 
-With the Template parameter, XSLT coding is not required.
+With the Template parameter, XSLT coding is not required to execute a Boomerang integration.
 
 A template is an XML document that contains references to the fields in the input report.
 
 Follow these steps to setup a valid template:
 
-1. Ensure that the RaaS that will be used for the boomerang is using the standard namespace `urn:com.workday/bsvc`.  This value is set when clicking the **Enable as Web Service** flag. Override the default value and set the namespace to `urn:com.workday/bsvc`. 
+1. Ensure that the RaaS that is used for the boomerang is using the standard namespace `urn:com.workday/bsvc`.  This value is set when clicking the **Enable as Web Service** flag. Override the default value and set the namespace to `urn:com.workday/bsvc`. 
 2. Construct a valid API request document using the information available on the [Workday Web Services Directory](https://community.workday.com/sites/default/files/file-hosting/productionapi/index.html). Remember that you are not constructing an XML stylesheet.  This is a basic XML document.
 3. Wherever dynamic data is needed in your request document, add the field name from your report input, surrounded by double-braces.  For example, if your input report contains a field called "costCenter", add the following text to your template where the cost center should appear:  `{{costCenter}}`
 4. When Boomerang runs, it will convert your template into an XSL transformation.  The double-braces will be replaced by xsl:value-of code.  The field name will be prefixed with `wd:`.
