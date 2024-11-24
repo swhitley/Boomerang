@@ -1,4 +1,4 @@
-# Boomerang-v2
+# Boomerang
 
 A boomerang integration exports data out of Workday, transforms the data, and then feeds the data back to Workday to perform an update (like a boomerang <img src="https://user-images.githubusercontent.com/413552/129063819-869e47d6-b847-4f59-9f14-76ddb7539880.png" width="16" />
 ).
@@ -6,20 +6,31 @@ A boomerang integration exports data out of Workday, transforms the data, and th
 A Workday boomerang integration has three components:
 1. A Workday report (RaaS) to extract data from Workday.
 2. An XSLT file to transform the data into a web service request.
-3. A Workday Studio application that takes the web service request and calls Workday's API to perform a data update.
+3. A Workday Studio or Orchestrate for Integrations application that takes the web service request and calls Workday's API to perform a data update.
 
-This application, `Boomerang-v2`, is a Workday Studio integration that can be run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
+There are two applications in this project, a Workday Studio applcation called, `Boomerang-v2`, and an Orchestrate application called, `Boomerange (O4I)`.  Both applications can run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
 
+A few of the advanced features are only available in the Studio version.  The current version of O4I supports basic options to specify a web service and API version.  Workday Studio supports templates, custom XSLT and custom reports as parameters in the integration, and document filtering.
+
+For the Studio version:
 - Boomerang can be run as part of an EIB, or it can be launched as a standalone integration.
 - With the *template* option, no coding is required (no Studio code and no XSLT).  Boomerang will convert the request template to XSLT and then transform the report document.
 - Messages are logged using multiple output options, including Cloud Logs.
 
-## Installation
+## Workday Studio Installation
 1. Download the latest clar file from https://github.com/swhitley/Boomerang/releases/latest.
 2. Import the clar file into Workday Studio.
 3. Deploy the integration to your Workday tenant.
 
-## Quick Start
+## Orchestrate Installation
+1. Download the latest Boomerang (O4I) zip file from https://github.com/swhitley/Boomerang/releases/latest.
+2. Signon to https://developer.workday.com/ and import the file into a new Orchestrate for Integrations application.
+3. Promote the integration to your Workday tenant.
+4. Create an Integration System using the Orchestrate for Integrations template.
+5. Connect the integration to your Orchestrate application.
+6. Create the launch parameters as documented in Boomerang_(O4I).xlsx.
+
+## Quick Start (Studio version)
 
 Although an EIB is often used as input, Boomerang can also be run as a standalone app. If a RaaS has already been created, and the XSLT document is stored in Workday Drive, follow the instructions below to quickly launch a boomerang integration. 
 
@@ -34,7 +45,7 @@ The report input will be transformed by the XSLT and the web service request wil
 
 **Tip:** If you always override your Workday report's namespace with `urn:com.workday/bsvc` (instead of the Workday-generated namespace), you'll be less likely to have a mismatch in your XSLT.
 
-## EIB Instructions (most common approach)
+## EIB Instructions (most common approach - Studio and Orchestrate)
 
 1. Develop a Workday Custom Report. The report will be used to extract data for a web service request (see the sample report and sample xml output below).
 2. Create an Outbound EIB.
@@ -69,11 +80,11 @@ For the EIB solution, you may only need to set the `Web Service` and `Web Servic
 
 <img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
 
-### Custom Transformation
+### Custom Transformation (Studio only)
 
 If the report input has not been transformed in an EIB, the xslt document in the **Custom XSLT or Template (opt)** parameter can be used to convert the XML into a SOAP request.  This parameter is useful for boomerang chains. To create a boomerang chain, select 'None' for the transformation in the EIB.  Create multiple integration steps in the EIB business process and attach different XSLT documents in this parameter to generate different transformations.  Boomerang chains are useful when generating different requests using the same report input.  For example, it is possible to create new supervisory orgs in one integration step, and in the next integration step, assign the manager roles.  The trick is to use different xslt documents for each boomerang step, which can be done with this parameter.
 
-### Workday Drive
+### Workday Drive (Studio only)
 
 Boomerang accesses Workday Drive when the **Custom XSLT or Template (opt)** parameter is used. Some configuration of Workday Drive and knowledge of files in Drive are helpful when using this parameter.
 
@@ -85,7 +96,7 @@ Workday Drive will only allow certain file types (based on file extension) to be
 
 When using the **Custom XSLT or Template (opt)** parameter, it is best to navigate in the selection field using the **By Type** option and then by **File**. Workday Drive carries a reference to the file and a view of the file as separate objects.  It is important to select the file object, and not the view object.
 
-### Request Template
+### Request Template (Studio only)
 
 With the Template parameter, XSLT coding is not required to execute a Boomerang integration.
 
