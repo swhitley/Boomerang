@@ -3,7 +3,7 @@
 A boomerang integration exports data out of Workday, transforms the data, and then feeds the data back to Workday to perform an update (like a boomerang <img src="https://user-images.githubusercontent.com/413552/129063819-869e47d6-b847-4f59-9f14-76ddb7539880.png" width="16" />
 ).
 
-A Workday boomerang integration has three components:
+A classic Workday boomerang integration has three components:
 1. A Workday report (RaaS) to extract data from Workday.
 2. An XSLT file to transform the data into a web service request.
 3. A Workday Studio or Orchestrate for Integrations application that takes the web service request and calls Workday's API to perform a data update.
