@@ -10,7 +10,17 @@ A classic Workday boomerang integration has three components:
 
 There are two applications in this project, a Workday Studio applcation called, `Boomerang-v2`, and an Orchestrate application called, `Boomerange (O4I)`.  Both applications can run without any code changes. Simply deploy Boomerang and launch a boomerang integration with a report and an XSLT file.
 
-A few of the advanced features are only available in the Studio version.  The current version of O4I supports basic options to specify a web service and API version.  Workday Studio supports templates, custom XSLT and custom reports as parameters in the integration, and document filtering.
+A few of the advanced features are only available in the Studio version.
+
+| Supported Parameters              | Workday Studio | O4I |
+|-----------------------------------|:--------------:|:---:|
+| **Web Service**                   |        X       |  X  |
+| **Web Service API Version**       |        X       |  X  |
+| **Custom XSLT or Template (opt)** |        X       |     |
+| **Event Doc Name Contains (opt)** |        X       |     |
+| **Custom Report (opt)**           |        X       |     |
+| **Validate Only**                 |        X       |  X  |
+
 
 For the Studio version:
 - Boomerang can be run as part of an EIB, or it can be launched as a standalone integration.
@@ -30,29 +40,18 @@ For the Studio version:
 5. Connect the integration to your Orchestrate application.
 6. Create the launch parameters as documented in Boomerang_(O4I).xlsx.
 
-## Quick Start (Studio version)
-
-Although an EIB is often used as input, Boomerang can also be run as a standalone app. If a RaaS has already been created, and the XSLT document is stored in Workday Drive, follow the instructions below to quickly launch a boomerang integration. 
-
-1. Launch the `Boomerang-v2`integration.
-2. Select the `Web Service` that corresponds to the web service request in your XSLT.
-3. Select the XSLT document from Workday Drive using **Custom XSLT or Template (opt)**.
-4. Select the report that will serve as the boomerang input in **Custom Report (opt)**.
-
-The report input will be transformed by the XSLT and the web service request will be executed in Workday.
-
 **Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
 
 **Tip:** If you always override your Workday report's namespace with `urn:com.workday/bsvc` (instead of the Workday-generated namespace), you'll be less likely to have a mismatch in your XSLT.
 
-## EIB Instructions (most common approach - Studio and Orchestrate)
+## EIB Instructions (most common approach for Studio and Orchestrate)
 
 1. Develop a Workday Custom Report. The report will be used to extract data for a web service request (see the sample report and sample xml output below).
 2. Create an Outbound EIB.
 3. Select the Workday report from step one as your data source.
 4. In the EIB, use the transformation step to convert the output into a web service request (see the sample xslt below).
 5. Add a business process to the EIB.
-6. Insert a new step at the end of the business process to call the `Boomerang-v2` integration.
+6. Insert a new step at the end of the business process to call the `Boomerang-v2` or `Boomerang (O4I)` integration.
 7. For the Boomerang integration parameters, update the Web Service launch parameter so it matches the request in your XSLT file. 
 8. You are not required to configure any additional Boomerang launch parameters for this option.
 
@@ -66,6 +65,16 @@ The report input will be transformed by the XSLT and the web service request wil
 
 <img width="668" alt="image" src="https://user-images.githubusercontent.com/413552/213896594-71ce75e4-6846-4b10-a1a1-3e8b8b089e35.png">
 
+## Quick Start (Studio version)
+
+Although an EIB is often used as input, Boomerang can also be run as a standalone app. If a RaaS has already been created, and the XSLT document is stored in Workday Drive, follow the instructions below to quickly launch a boomerang integration. 
+
+1. Launch the `Boomerang-v2`integration.
+2. Select the `Web Service` that corresponds to the web service request in your XSLT.
+3. Select the XSLT document from Workday Drive using **Custom XSLT or Template (opt)**.
+4. Select the report that will serve as the boomerang input in **Custom Report (opt)**.
+
+The report input will be transformed by the XSLT and the web service request will be executed in Workday.
 
 ## Launch Parameters
 
