@@ -36,13 +36,9 @@ For the Studio version:
 1. Download the latest Boomerang (O4I) zip file from https://github.com/swhitley/Boomerang/releases/latest.
 2. Signon to https://developer.workday.com/ and import the file into a new Orchestrate for Integrations application.
 3. Promote the integration to your Workday tenant.
-4. Create an Integration System using the Orchestrate for Integrations template.
-5. Connect the integration to your Orchestrate application.
+4. Create an Integration System using the Orchestrate for Integration template.
+5. Connect the integration system to the Orchestrate application by setting the Application Reference ID.
 6. Create the launch parameters as documented in Boomerang_(O4I).xlsx.
-
-**Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
-
-**Tip:** If you always override your Workday report's namespace with `urn:com.workday/bsvc` (instead of the Workday-generated namespace), you'll be less likely to have a mismatch in your XSLT.
 
 ## EIB Instructions (most common approach for Studio and Orchestrate)
 
@@ -54,6 +50,10 @@ For the Studio version:
 6. Insert a new step at the end of the business process to call the `Boomerang-v2` or `Boomerang (O4I)` integration.
 7. For the Boomerang integration parameters, update the Web Service launch parameter so it matches the request in your XSLT file. 
 8. You are not required to configure any additional Boomerang launch parameters for this option.
+
+**Reminder:**  The namespace in your XSLT (example: the text following `xmlns:wd=`) must match the namespace on your Workday report (under `Web Service Options`).
+
+**Tip:** If you always override your Workday report's namespace with `urn:com.workday/bsvc` (instead of the Workday-generated namespace), you'll be less likely to have a mismatch in your XSLT.
 
 ### (Step 5 Above) Add a business process to the EIB and insert a new step
 ![image](https://user-images.githubusercontent.com/413552/125008154-c2fa0680-e016-11eb-8551-dda6e78c8298.png)
