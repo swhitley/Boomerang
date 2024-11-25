@@ -58,7 +58,7 @@ For the Studio version:
 ### (Step 5 Above) Add a business process to the EIB and insert a new step
 ![image](https://user-images.githubusercontent.com/413552/125008154-c2fa0680-e016-11eb-8551-dda6e78c8298.png)
 
-### (Step 6 Above) Select "Integration" and choose the Boomerang-v2 integration
+### (Step 6 Above) Select "Integration" and choose Boomerang-v2 or Boomerang (O4I)
 <img width="320" alt="image" src="https://user-images.githubusercontent.com/413552/213903737-86b79a14-c6c4-4675-890f-13ea6edc5a40.png">
 
 ### (Step 7 Above) Configure the Boomerang integration
